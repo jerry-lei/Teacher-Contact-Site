@@ -1,5 +1,5 @@
 from flask import Flask, render_template, session, request, redirect
-import database, hashlib
+import hashlib
 from datetime import timedelta
 
 app = Flask(__name__)
