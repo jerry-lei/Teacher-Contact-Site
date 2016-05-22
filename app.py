@@ -16,10 +16,10 @@ def addUser():
     session['username'] = request.args.get('username', 0, type=str)
     session['email'] = request.args.get('email', 0, type=str)
     session['auth'] = request.args.get('auth', 0, type=str)
-    if session.get['auth'] == 'teacher':
-        database.create_student(session.get('username'), session.get('email'))
-    else:
+    if session.get('auth') == 'teacher':
         database.create_teacher(session.get('username'), session.get('email'))
+    else:
+        database.create_student(session.get('username'), session.get('email'))
     return redirect("/")
 
 @app.route("/testLogin", methods=["GET", "POST"])
@@ -34,7 +34,7 @@ def testLogin():
         session['username'] = username
         session['auth'] = 'test'
         return redirect("/")
-    
+
 @app.route("/logout")
 def logout():
     session.clear()
@@ -64,7 +64,8 @@ def contactInfo():
         else:
             return render_template("contactInfo.html", username = session.get('username'), auth = session.get('auth'), email = session.get('email'))
     else:
-        pass
+        database.add_contact_info(session.get('email'), request.form.get('sname'), request.form.get('sphone'), request.form.get('address'), request.form.get('pname'), request.form.get('pphone'), request.form.get('pemail'), request.form.get('gname'), request.form.get('gphone'), request.form.get('gemail'))
+        return redirect("/")
 
 @app.route("/addClasses", methods=["GET", "POST"])
 def addClasses():
