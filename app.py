@@ -1,7 +1,6 @@
 from flask import Flask, render_template, session, request, redirect
-import database, hashlib
+import database
 import json
-
 
 app = Flask(__name__)
 
@@ -10,7 +9,6 @@ def index():
     with open('../secret_key/gmail.json') as data_file:
         data = json.load(data_file)
     client_id = data['web']['client_id']
-    print session
     return render_template("index.html", username = session.get('username'), auth = session.get('auth'), client_id = client_id)
 
 @app.route('/addUser')
@@ -45,12 +43,18 @@ def classes():
 
 @app.route("/createClass", methods=["GET", "POST"])
 def createClass():
-    return redirect("/")
+    if request.method == "GET":
+        if session.get('username') == None or session.get('auth') != 'teacher':
+            return redirect("/")
+        else:
+            return render_template("createClass.html", username = session.get('username'), auth = session.get('auth'), email = session.get('email'))
+    else:
+        pass
 
 @app.route("/contactInfo", methods=["GET", "POST"])
 def contactInfo():
     if request.method == "GET":
-        if session.get('username') == None:
+        if session.get('username') == None or session.get('auth') != 'student':
             return redirect("/")
         else:
             return render_template("contactInfo.html", username = session.get('username'), auth = session.get('auth'), email = session.get('email'))
