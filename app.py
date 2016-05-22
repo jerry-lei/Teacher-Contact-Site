@@ -10,8 +10,16 @@ def index():
     with open('../secret_key/gmail.json') as data_file:
         data = json.load(data_file)
     client_id = data['web']['client_id']
-    print client_id
     return render_template("index.html", username = session.get('username'), client_id = client_id)
+
+@app.route('/add_user')
+def addUser():
+    username = request.args.get('username', 0, type=str)
+    email = request.args.get('email', 0, type=str)
+    print username
+    print email
+    session['username'] = username
+    return redirect("/")
 
 @app.route("/testLogin", methods=["GET", "POST"])
 def testLogin():
@@ -24,7 +32,7 @@ def testLogin():
         username = request.form.get("login")
         session['username'] = username
         return redirect("/")
-
+    
 @app.route("/logout")
 def logout():
     session.clear()

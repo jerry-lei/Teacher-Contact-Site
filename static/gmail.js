@@ -27,19 +27,27 @@ function checkAuth() {
  * @param {Object} authResult Authorization result.
  */
 function handleAuthResult(authResult) {
-    if (authResult && !authResult.error && authResult.hd === "stuy.edu") {
-	console.log(authResult)
-	gapi.client.load('plus', 'v1').then(function() {
-	    var request = gapi.client.plus.people.get({
-		'userId': 'me'
-            });
-
-	    request.then(function(resp) {
-		console.log(resp)
-	    }, function(reason) {
-		console.log('Error: ' + reason.result.error.message);
+    if (authResult && !authResult.error) {
+	if(authResult.hd === "stuy.edu"){
+	    gapi.client.load('plus', 'v1').then(function() {
+		var request = gapi.client.plus.people.get({
+		    'userId': 'me'
+		})
+		
+		request.then(function(resp) {
+		    $.getJSON("/add_user", {
+			username: resp.result.displayName,
+			email: resp.result.emails[0].value
+		    }).done(function(){
+			window.location.reload();
+		    });
+		}, function(reason) {
+		    console.log('Error: ' + reason.result.error.message);
+		});
 	    });
-	});
+	}else{
+	    signOut();
+	}
     }
 };
 
@@ -65,15 +73,18 @@ function loadGmailApi() {
 
 /**
  * Sign a user out
- * Source: https://developers.google.com/identity/sign-in/web/sign-in#get_profile_information
+ * Source: http://stackoverflow.com/a/32892148
  */
 function signOut(){
-  var auth2 = gapi.auth2.getAuthInstance();
-  auth2.signOut().then(function(){
-    console.log('User signed out.');
-  });
+    
+    var token = gapi.auth.getToken();
+    if (token) {
+	var accessToken = gapi.auth.getToken().access_token;
+	if (accessToken) {
+	    xhttp.open("GET", 'https://accounts.google.com/o/oauth2/revoke?token=' + accessToken, true);
+	}
+    }
+    gapi.auth.setToken(null);
+    gapi.auth.signOut();
 }
 
-
-document.getElementById('teacher').addEventListener("click", handleAuthClick);
-document.getElementById('student').addEventListener("click", handleAuthClick);

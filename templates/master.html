@@ -51,14 +51,14 @@
           <ul class="nav navbar-nav">
 	    {% if username is none %}
             <li>
-              <a id="teacher">Teacher Login</a>
+              <a id="teacher" onclick="handleAuthClick();">Teacher Login</a>
             </li>
             <li>
-              <a id="student">Student Login</a>
+              <a id="student" onclick="handleAuthClick();">Student Login</a>
             </li>
 	    {% else %}
 	    <li>
-	      <a href="/logout" onclick="signout();">Logout</a>
+	      <a href="/logout" onclick="signOut();">Logout</a>
 	    </li>
 	    {% endif %}
           </ul>
