@@ -11,23 +11,15 @@ This Teacher Contact Site is a final project for a software development class. I
 - Google API
 
 ### Goals (Client requested):
-[x] &nbsp; Login through Google API
-
-[ ] &nbsp; Import contact info of students
-
-[ ] &nbsp; Allow students to import contact info of parents
-
-[ ] &nbsp; Email / snail mail
-
-[ ] &nbsp; Send mass emails
-
-[ ] &nbsp; Logs of letters/what kinds of letters/notes to a log
-
-[ ] &nbsp; Links to send previously generated letters (with ability to edit)
-
-[ ] &nbsp; (Stretch) Print address on double sided paper
-
-[ ] &nbsp; (Stretch) Voice call
+- [x] &nbsp; Login through Google API
+- [ ] &nbsp; Import contact info of students
+- [ ] &nbsp; Allow students to import contact info of parents
+- [ ] &nbsp; Email / snail mail
+- [ ] &nbsp; Send mass emails
+- [ ] &nbsp; Logs of letters/what kinds of letters/notes to a log
+- [ ] &nbsp; Links to send previously generated letters (with ability to edit)
+- [ ] &nbsp; (Stretch) Print address on double sided paper
+- [ ] &nbsp; (Stretch) Voice call
 
 ### Sources:
 - https://github.com/BlackrockDigital/startbootstrap-bare
