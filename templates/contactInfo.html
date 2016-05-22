@@ -1,0 +1,37 @@
+{% extends "master.html" %}
+
+{% block body %}
+<center>
+  <form method="post">
+    <p>Student Name:</p>
+    <input type="text" name="sname" value="{{username}}">
+    <br>
+    <p>Student Phone Number:</p>
+    <input type="text" name="sphone">
+    <br>
+    <p>Student Email:</p>
+    <input type="text" name="semail" value="{{email}}">
+    <br>
+    <p>Student Address:</p>
+    <input type="text" name="address">
+    <br>
+    <p>Parent Name:</p>
+    <input type="text" name="pname">
+    <p>Parent Phone Number:</p>
+    <input type="text" name="pphone">
+    <br>
+    <p>Parent Email:</p>
+    <input type="text" name="pemail">
+    <p>Guidance Counselor Name:</p>
+    <input type="text" name="gname">
+    <p>Guidance Counselor Phone Number:</p>
+    <input type="text" name="gphone">
+    <br>
+    <p>Guidance Counselor Email:</p>
+    <input type="text" name="gemail">
+    <br><br>
+    <button type="submit">Submit</button>
+  </form>
+</center>
+
+{% endblock %}

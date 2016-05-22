@@ -51,12 +51,27 @@
           <ul class="nav navbar-nav">
 	    {% if username is none %}
             <li>
-              <a id="teacher" onclick="handleAuthClick();">Teacher Login</a>
+              <a id="teacher">Teacher Login</a>
             </li>
             <li>
-              <a id="student" onclick="handleAuthClick();">Student Login</a>
+              <a id="student">Student Login</a>
             </li>
 	    {% else %}
+	    {% if auth == "teacher" %}
+	    <li>
+	      <a href="/classes">Classes</a>
+	    </li>
+	    <li>
+	      <a href="/createClass">Create Class</a>
+	    </li>
+	    {% elif auth == "student" %}
+	    <li>
+	      <a href="/contactInfo">Contact Information</a>
+	    </li>
+	    <li>
+	      <a href="/addClasses">Add Classes</a>
+	    </li>
+	    {% endif %}
 	    <li>
 	      <a href="/logout" onclick="signOut();">Logout</a>
 	    </li>

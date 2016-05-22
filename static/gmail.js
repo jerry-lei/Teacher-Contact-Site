@@ -35,12 +35,16 @@ function handleAuthResult(authResult) {
 		})
 		
 		request.then(function(resp) {
-		    $.getJSON("/add_user", {
-			username: resp.result.displayName,
-			email: resp.result.emails[0].value
-		    }).done(function(){
-			window.location.reload();
-		    });
+		    $.getJSON("/addUser", {
+			'username': resp.result.displayName,
+			'email': resp.result.emails[0].value,
+			'auth': auth,
+			success: function(data){
+			    console.log(data);
+			    //Should reload. Doesn't work right."
+			    window.location.reload(true);
+			}
+		    })
 		}, function(reason) {
 		    console.log('Error: ' + reason.result.error.message);
 		});
@@ -57,6 +61,7 @@ function handleAuthResult(authResult) {
  * @param {Event} event Button click event.
  */
 function handleAuthClick(event) {
+    auth = event.target.id
     gapi.auth.authorize(
         {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
         handleAuthResult);
@@ -76,7 +81,6 @@ function loadGmailApi() {
  * Source: http://stackoverflow.com/a/32892148
  */
 function signOut(){
-    
     var token = gapi.auth.getToken();
     if (token) {
 	var accessToken = gapi.auth.getToken().access_token;
@@ -88,3 +92,6 @@ function signOut(){
     gapi.auth.signOut();
 }
 
+
+ document.getElementById('teacher').addEventListener("click", handleAuthClick);
+ document.getElementById('student').addEventListener("click", handleAuthClick);
