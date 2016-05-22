@@ -21,7 +21,7 @@ def teacher():
         session['username'] = username
         session['auth'] = 'teacher'
         return redirect("/")
-        
+
 @app.route("/student", methods=["GET", "POST"])
 def student():
     if request.method == "GET":
@@ -39,12 +39,12 @@ def student():
 def logout():
     session.clear()
     return redirect("/")
-    
+
 @app.route("/gmail")
 def gmail():
     with open('../secret_key/gmail.json') as data_file:
         data = json.load(data_file)
-    client_id = data['private_key_id'] 
+    client_id = data['web']['client_id']
     return render_template("gmail.html", client_id = client_id)
 
 if __name__ == "__main__":
