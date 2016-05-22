@@ -7,7 +7,7 @@ function initClientId(client_id){
     CLIENT_ID = client_id;
 };
 
-var SCOPES = ['https://www.googleapis.com/auth/gmail.readonly'];
+var SCOPES = ['https://www.googleapis.com/auth/plus.login'];
 
 /**
  * Check if current user has authorized this application.
@@ -27,8 +27,19 @@ function checkAuth() {
  * @param {Object} authResult Authorization result.
  */
 function handleAuthResult(authResult) {
-    if (authResult && !authResult.error) {
-	console.log("SUCCESS!");
+    if (authResult && !authResult.error && authResult.hd === "stuy.edu") {
+	console.log(authResult)
+	gapi.client.load('plus', 'v1').then(function() {
+	    var request = gapi.client.plus.people.get({
+		'userId': 'me'
+            });
+	    
+	    request.then(function(resp) {
+		console.log(resp)
+	    }, function(reason) {
+		console.log('Error: ' + reason.result.error.message);
+	    });
+	});
     }
 };
 
