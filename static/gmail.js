@@ -33,7 +33,7 @@ function handleAuthResult(authResult) {
 	    var request = gapi.client.plus.people.get({
 		'userId': 'me'
             });
-	    
+
 	    request.then(function(resp) {
 		console.log(resp)
 	    }, function(reason) {
@@ -62,6 +62,18 @@ function handleAuthClick(event) {
 function loadGmailApi() {
     gapi.client.load('gmail', 'v1', listLabels);
 };
+
+/**
+ * Sign a user out
+ * Source: https://developers.google.com/identity/sign-in/web/sign-in#get_profile_information
+ */
+function signOut(){
+  var auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function(){
+    console.log('User signed out.');
+  });
+}
+
 
 document.getElementById('teacher').addEventListener("click", handleAuthClick);
 document.getElementById('student').addEventListener("click", handleAuthClick);
