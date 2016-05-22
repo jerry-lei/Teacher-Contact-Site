@@ -13,9 +13,13 @@ def index():
 
 @app.route('/addUser')
 def addUser():
-    session['username'] = username = request.args.get('username', 0, type=str)
-    session['email'] = email = request.args.get('email', 0, type=str)
-    session['auth'] = auth = request.args.get('auth', 0, type=str)
+    session['username'] = request.args.get('username', 0, type=str)
+    session['email'] = request.args.get('email', 0, type=str)
+    session['auth'] = request.args.get('auth', 0, type=str)
+    if session.get['auth'] == 'teacher':
+        database.create_student(session.get('username'), session.get('email'))
+    else:
+        database.create_teacher(session.get('username'), session.get('email'))
     return redirect("/")
 
 @app.route("/testLogin", methods=["GET", "POST"])
@@ -49,7 +53,8 @@ def createClass():
         else:
             return render_template("createClass.html", username = session.get('username'), auth = session.get('auth'), email = session.get('email'))
     else:
-        pass
+        database.create_class(session.get('username'), session.get('email'), request.form.get('course_code'), request.form.get('course_name'), request.form.get('course_period'))
+        return redirect("/")
 
 @app.route("/contactInfo", methods=["GET", "POST"])
 def contactInfo():
