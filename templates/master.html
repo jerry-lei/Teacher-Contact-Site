@@ -49,12 +49,12 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-	    {% if current_user is none %}
+	    {% if username is none %}
             <li>
-              <a href="/teacher">Teacher Login</a>
+              <a id="teacher">Teacher Login</a>
             </li>
             <li>
-              <a href="/student">Student Login</a>
+              <a id="student">Student Login</a>
             </li>
 	    {% else %}
 	    <li>
@@ -72,7 +72,11 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
+    <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+    <script src="{{url_for('static', filename='gmail.js')}}"></script>
+    <script>
+      initClientId("{{client_id}}");
+    </script>
   </body>
 
 </html>
