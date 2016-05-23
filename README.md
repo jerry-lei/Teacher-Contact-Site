@@ -10,13 +10,15 @@ This Teacher Contact Site is a final project for a software development class. I
 ### Technologies:
 - Google API
 
-### Goals (Client requested):
-- [x] &nbsp; Login through Google API (stuy.edu only)
-- [x] &nbsp; Logout (technically)
+### Todo (Client requested):
+- [x] &nbsp; Login through Google API (stuy.edu only) -- SOMETIMES REQUIRES REFRESH
+- [x] &nbsp; Logout (technically) -- LOGOUT PAGE WILL NOT AUTO CLOSE
 - [x] &nbsp; Import contact info of students
-- [ ] &nbsp; Contact info overrides 
+- [x] &nbsp; Contact info overrides
 - [x] &nbsp; Allow students to import contact info of parents
-- [ ] &nbsp; Email / snail mail
+- [ ] &nbsp; Teachers cannot see students info
+- [ ] &nbsp; Teacher access to contactInfo.html
+- [ ] &nbsp; Send single email
 - [ ] &nbsp; Send mass emails
 - [ ] &nbsp; Logs of letters/what kinds of letters/notes to a log
 - [ ] &nbsp; Links to send previously generated letters (with ability to edit)

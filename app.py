@@ -72,6 +72,11 @@ def contactInfo():
 
 @app.route("/addClasses", methods=["GET", "POST"])
 def addClasses():
+    if request.method == "GET":
+        if session.get('auth') != 'student':
+            return redirect("/")
+        else:
+            return render_template("addClass.html", username = session.get('username'), auth = session.get('auth'), email = session.get('email'))
     return redirect("/")
 
 if __name__ == "__main__":
