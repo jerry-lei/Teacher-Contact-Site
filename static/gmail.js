@@ -33,7 +33,6 @@ function handleAuthResult(authResult) {
 		var request = gapi.client.plus.people.get({
 		    'userId': 'me'
 		})
-
 		request.then(function(resp) {
 		    $.getJSON("/addUser", {
 			'username': resp.result.displayName,

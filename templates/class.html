@@ -3,10 +3,20 @@
 {% block body %}
 <center>
     {{class_one.teacher_name}} - {{class_one.class_name}} - Period {{class_one.class_period}}
+    <br><br>
+    Students
     <br>
-
+    {% for student in students %}
+    <a href="/student/{{student.student_email}}">{{student.student_name}}</a>
+    <br>
+    {% endfor %}
     Write the teacher: <a href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to={{class_one.teacher_email}}&su={{username}} - {{class_one.class_name}} - Period {{class_one.class_period}}">
       {{class_one.teacher_email}}
     </a>
+    {% if auth == "student" %}
+    <form method="post">
+      <button type="submit">Enroll in Class</button>
+    </form>
+    {% endif %}
 </center>
 {% endblock %}

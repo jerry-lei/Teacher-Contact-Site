@@ -16,6 +16,8 @@ def addUser():
     session['username'] = request.args.get('username', 0, type=str)
     session['email'] = request.args.get('email', 0, type=str)
     session['auth'] = request.args.get('auth', 0, type=str)
+    print "LOL"
+    print session
     if session.get('auth') == 'teacher':
         database.create_teacher(session.get('username'), session.get('email'))
     else:
@@ -41,7 +43,7 @@ def logout():
     return redirect("/")
 
 @app.route("/classes")
-@app.route("/classes/<class_id>")
+@app.route("/classes/<class_id>", methods=["GET", "POST"])
 def classes(class_id = ""):
     if len(class_id) < 1:
         if session.get('auth') != 'teacher':
@@ -50,8 +52,15 @@ def classes(class_id = ""):
             return render_template("classes.html", username = session.get('username'), auth=session.get('auth'), classes = database.find_classes(session.get('email')))
     else:
         c1 = database.find_class(class_id)
-        return render_template("class.html", username = session.get('username'), auth=session.get('auth'), class_one = c1)
-
+        if c1 == None:
+            return redirect("/")
+        if request.method == "GET":
+            return render_template("class.html", username = session.get('username'), auth=session.get('auth'), class_one = c1, students = database.all_students_in_class(class_id))
+        else:
+            print class_id
+            database.add_to_class(session.get('email'), class_id)
+            return redirect("/classes/"+class_id)
+        
 @app.route("/createClass", methods=["GET", "POST"])
 def createClass():
     if request.method == "GET":
