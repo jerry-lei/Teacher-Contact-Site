@@ -53,3 +53,10 @@ def create_class(teacher_name, teacher_email, course_code, class_name, class_per
                  'class_name': class_name,
                  'class_period': class_period}
     classes.insert_one(new_class)
+    db['teachers'].find_one_and_update({'teacher_email': teacher_email},
+                                 {'$push':{'classes': course_code}})
+
+def find_classes(teacher_email):
+    classes = db['classes']
+    return classes.find({'teacher_email': teacher_email})
+
