@@ -3,7 +3,7 @@
 {% block body %}
 <center>
 {% for item in classes %}
-<a href="/classes/{{item.course_code}}">{{item.class_name}} Period {{item.class_period}}</a>
+<a href="/classes/{{item._id}}">{{item.class_name}} Period {{item.class_period}}</a>
 <br><br>
 {% endfor %}
 </center>

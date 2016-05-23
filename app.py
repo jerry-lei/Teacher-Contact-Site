@@ -41,12 +41,16 @@ def logout():
     return redirect("/")
 
 @app.route("/classes")
-@app.route("/classes/<course_code>")
-def classes(course_code = ""):
-    if session.get('auth') != 'teacher':
-        return redirect("/")
+@app.route("/classes/<class_id>")
+def classes(class_id = ""):
+    c = database.find_class(class_id)
+    if c == None:
+        if session.get('auth') != 'teacher':
+            return redirect("/")
+        else:
+            return render_template("classes.html", username = session.get('username'), auth=session.get('auth'), classes = database.find_classes(session.get('email')))
     else:
-        return render_template("classes.html", username = session.get('username'), auth=session.get('auth'), classes = database.find_classes(session.get('email')))
+        return render_template("classs.html",
 
 @app.route("/createClass", methods=["GET", "POST"])
 def createClass():
