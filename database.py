@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 from datetime import datetime
 
 connection = MongoClient()
@@ -62,7 +63,9 @@ def find_classes(teacher_email):
 
 def find_class(class_id):
     classes = db['classes']
-    return classes.find_one({'_id': class_id})
+    #return classes.find_one({'_id': class_id})
+    ret_class = classes.find_one({'_id': ObjectId(class_id)})
+    return ret_class
 
 def all_classes_in_period(class_periods): #class_period in string form (array to allow multiple checkboxes)
     classes = db['classes']

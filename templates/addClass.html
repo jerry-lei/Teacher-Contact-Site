@@ -29,7 +29,7 @@
   <input type="submit" id="button" name="button" value = "Look">
 </form>
   {% for item in classes %}
-  <a href="/classes/{{item.course_code}}">{{item.teacher_name}} - {{item.class_name}} - Period {{item.class_period}}</a>
+  <a href="/classes/{{item._id}}">{{item.teacher_name}} - {{item.class_name}} - Period {{item.class_period}}</a>
   <br><br>
   {% endfor %}
 </center>
