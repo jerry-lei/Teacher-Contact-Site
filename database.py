@@ -6,13 +6,23 @@ db = connection['database']
 
 def create_student(student_name, student_email):
     students = db['students']
-    if students.find_one({'student_email': student_email}) == None:
+    if students.find_one({'student email': student_email}) == None:
         new_student = {'student_name': student_name,
                        'student_email': student_email}
         students.insert_one(new_student)
 
 def add_contact_info(student_email, preferred_name, student_phone, address, parent_name, parent_phone, parent_email, counselor_name, counselor_phone, counselor_email):
-    pass
+    students = db['students']
+    students.find_one_and_update({'student_email': student_email},
+                                 {'preferred_name': preferred_name,
+                                  'student_phone': student_phone,
+                                  'address': address,
+                                  'parent_name': parent_name,
+                                  'parent_phone': parent_phome,
+                                  'parent_email': parent_email,
+                                  'counselor_name': counselor_name,
+                                  'counselor_phone': counselor_phone,
+                                  'counselor_email': counselor_email})
         
 def create_teacher(teacher_name, teacher_email):
     teachers = db['teachers']

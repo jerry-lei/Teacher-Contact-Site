@@ -48,7 +48,7 @@ def classes():
 @app.route("/createClass", methods=["GET", "POST"])
 def createClass():
     if request.method == "GET":
-        if session.get('username') == None or session.get('auth') != 'teacher':
+        if session.get('auth') != 'teacher':
             return redirect("/")
         else:
             return render_template("createClass.html", username = session.get('username'), auth = session.get('auth'), email = session.get('email'))
@@ -59,7 +59,7 @@ def createClass():
 @app.route("/contactInfo", methods=["GET", "POST"])
 def contactInfo():
     if request.method == "GET":
-        if session.get('username') == None or session.get('auth') != 'student':
+        if session.get('auth') != 'student':
             return redirect("/")
         else:
             return render_template("contactInfo.html", username = session.get('username'), auth = session.get('auth'), email = session.get('email'))
