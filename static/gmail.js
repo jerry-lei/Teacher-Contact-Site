@@ -83,7 +83,8 @@ function loadGmailApi() {
  */
 function signOut(){
     var win = window.open("https://accounts.google.com/logout","","width=500,height=500")
-    setTimeout(function(){win.close();},1);
+
+    setTimeout(function(){win.close();},1000);
     /*
     var token = gapi.auth.getToken();
     if (token) {
