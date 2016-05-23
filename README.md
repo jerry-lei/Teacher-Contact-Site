@@ -16,6 +16,8 @@ This Teacher Contact Site is a final project for a software development class. I
 - [x] &nbsp; Import contact info of students
 - [x] &nbsp; Contact info overrides
 - [x] &nbsp; Allow students to import contact info of parents
+- [x] &nbsp; Class profile (needs to show other students/add student to class)
+- [ ] &nbsp; Student profile
 - [ ] &nbsp; Teachers cannot see students info
 - [ ] &nbsp; Teacher access to contactInfo.html
 - [ ] &nbsp; Send single email
