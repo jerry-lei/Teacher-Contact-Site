@@ -2,9 +2,35 @@
 
 {% block body %}
 <center>
-{% for item in classes %}
-<a href="/classes/{{item.course_code}}">{{item.class_name}} Period {{item.class_period}}</a>
-<br><br>
-{% endfor %}
+  <!--TESTING CHECKBOX
+  <select id="target_choice">
+    <option value="p1" selected="selected">Period 1</option>
+    <option value="p2">Period 2</option>
+    <option value="p3">Period 3</option>
+    <option value="p4">Period 4</option>
+    <option value="p5">Period 5</option>
+    <option value="p6">Period 6</option>
+    <option value="p7">Period 7</option>
+    <option value="p8">Period 8</option>
+    <option value="p9">Period 9</option>
+    <option value="p10">Period 10</option>
+  </select>-->
+  <form method="post">
+    <input type="checkbox" name="checks" value="p1">Period 1<br>
+    <input type="checkbox" name="checks" value="p2">Period 2<br>
+    <input type="checkbox" name="checks" value="p3">Period 3<br>
+    <input type="checkbox" name="checks" value="p4">Period 4<br>
+    <input type="checkbox" name="checks" value="p5">Period 5<br>
+    <input type="checkbox" name="checks" value="p6">Period 6<br>
+    <input type="checkbox" name="checks" value="p7">Period 7<br>
+    <input type="checkbox" name="checks" value="p8">Period 8<br>
+    <input type="checkbox" name="checks" value="p9">Period 9<br>
+    <input type="checkbox" name="checks" value="p10">Period 10<br>
+  <input type="submit" id="button" name="button" value = "Look">
+</form>
+  {% for item in classes %}
+  <a href="/classes/{{item.course_code}}">{{item.teacher_name}} - {{item.class_name}} - Period {{item.class_period}}</a>
+  <br><br>
+  {% endfor %}
 </center>
 {% endblock %}

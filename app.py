@@ -77,6 +77,14 @@ def addClasses():
             return redirect("/")
         else:
             return render_template("addClass.html", username = session.get('username'), auth = session.get('auth'), email = session.get('email'))
+    else:
+        button = request.form['button']
+        if button == "Look":
+            checked = request.form.getlist("checks")
+            #print checked
+            return render_template("addClass.html", username = session.get('username'), auth = session.get('auth'), email = session.get('email'), classes = database.all_classes_in_period(checked))
+        else:
+            return render_template("addClass.html", username = session.get('username'), auth = session.get('auth'), email = session.get('email'))#,database.all_classes_in_period())
     return redirect("/")
 
 if __name__ == "__main__":

@@ -60,10 +60,15 @@ def find_classes(teacher_email):
     classes = db['classes']
     return classes.find({'teacher_email': teacher_email})
 
-def all_classes():
+def all_classes_in_period(class_periods): #class_period in string form (array to allow multiple checkboxes)
     classes = db['classes']
-    return classes.find()
+    class_by_period = []
+    for x in xrange(len(class_periods)):
+        class_by_period.append(class_periods[x][1:])
+    return classes.find({'class_period': {"$in": class_by_period}})
 
-def add_to_class(student_email, class_name):
+#print all_classes_in_period(['p1', 'p6'])
+
+def add_to_class():#student_email, class_name):
     classes = db['classes']
-    return classes.find()
+    return classes.find({'class_period':'1'})
