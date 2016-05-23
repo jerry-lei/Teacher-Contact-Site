@@ -60,3 +60,10 @@ def find_classes(teacher_email):
     classes = db['classes']
     return classes.find({'teacher_email': teacher_email})
 
+def all_classes():
+    classes = db['classes']
+    return classes.find()
+
+def add_to_class(student_email, class_name):
+    classes = db['classes']
+    return classes.find()
