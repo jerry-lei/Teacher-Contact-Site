@@ -33,7 +33,7 @@ function handleAuthResult(authResult) {
 		var request = gapi.client.plus.people.get({
 		    'userId': 'me'
 		})
-		
+
 		request.then(function(resp) {
 		    $.getJSON("/addUser", {
 			'username': resp.result.displayName,
@@ -42,6 +42,7 @@ function handleAuthResult(authResult) {
 			success: function(data){
 			    console.log(data);
 			    //Should reload. Doesn't work right."
+          //setTimeout(window.location.reload(true), 1);
 			    window.location.reload(true);
 			}
 		    })
@@ -81,6 +82,9 @@ function loadGmailApi() {
  * Source: http://stackoverflow.com/a/32892148
  */
 function signOut(){
+    var win = window.open("https://accounts.google.com/logout","","width=500,height=500")
+    setTimeout(function(){win.close();},1);
+    /*
     var token = gapi.auth.getToken();
     if (token) {
 	var accessToken = gapi.auth.getToken().access_token;
@@ -89,7 +93,7 @@ function signOut(){
 	}
     }
     gapi.auth.setToken(null);
-    gapi.auth.signOut();
+    gapi.auth.signOut();*/
 }
 
 
