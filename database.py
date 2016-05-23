@@ -23,7 +23,7 @@ def check_contact_info(student_email):
     student = students.find_one({'student_email': student_email})
     return student
 
-print check_contact_info('jlei2@stuy.edu')
+#print check_contact_info('jlei2@stuy.edu')
 
 def add_contact_info(student_email, preferred_name, student_phone, address, parent_name, parent_phone, parent_email, counselor_name, counselor_phone, counselor_email):
     students = db['students']
