@@ -70,14 +70,6 @@ function handleAuthClick(event) {
 };
 
 /**
- * Load Gmail API client library. List labels once client library
- * is loaded.
- */
-function loadGmailApi() {
-    gapi.client.load('gmail', 'v1', listLabels);
-};
-
-/**
  * Sign a user out
  * Source: http://stackoverflow.com/a/32892148
  */

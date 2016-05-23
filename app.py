@@ -62,7 +62,7 @@ def contactInfo():
         if session.get('auth') != 'student':
             return redirect("/")
         else:
-            return render_template("contactInfo.html", username = session.get('username'), auth = session.get('auth'), email = session.get('email'))
+            return render_template("contactInfo.html", username = session.get('username'), auth = session.get('auth'), email = session.get('email'), student = database.check_contact_info(session.get('email')))
     else:
         database.add_contact_info(session.get('email'), request.form.get('sname'), request.form.get('sphone'), request.form.get('address'), request.form.get('pname'), request.form.get('pphone'), request.form.get('pemail'), request.form.get('gname'), request.form.get('gphone'), request.form.get('gemail'))
         return redirect("/")
