@@ -1,0 +1,9 @@
+{% extends "master.html" %}
+
+{% block body %}
+
+{% for item in classes %}
+   <a href="/classes/{{item.course_code}}">{{item.class_name}} Period {{item.class_period}}</a>								
+{% endfor %}
+
+{% endblock %}

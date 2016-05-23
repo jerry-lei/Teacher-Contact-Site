@@ -43,7 +43,7 @@ def logout():
 @app.route("/classes")
 @app.route("/classes/<CLASSCODE>")
 def classes():
-    return redirect("/")
+    return render_template("classes.html", username = session.get('username'), auth=session.get('auth'), classes = {})
 
 @app.route("/createClass", methods=["GET", "POST"])
 def createClass():
