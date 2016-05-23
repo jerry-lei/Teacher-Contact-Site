@@ -71,24 +71,26 @@ function handleAuthClick(event) {
 
 /**
  * Sign a user out
- * Source: http://stackoverflow.com/a/32892148
  */
 function signOut(){
-    var win = window.open("https://accounts.google.com/logout","","width=500,height=500")
-
-    setTimeout(function(){win.close();},1000);
-    /*
-    var token = gapi.auth.getToken();
-    if (token) {
-	var accessToken = gapi.auth.getToken().access_token;
-	if (accessToken) {
-	    xhttp.open("GET", 'https://accounts.google.com/o/oauth2/revoke?token=' + accessToken, true);
-	}
-    }
-    gapi.auth.setToken(null);
-    gapi.auth.signOut();*/
+    var not_winning = window.open("https://accounts.google.com/logout","","width=0,height=0")
+    not_winning.onload = function(){not_winning.close();};
+    //win.close();
+    //setTimeout(function(){not_winning.close();},1000);
+    //setTimeout(function(){window.open("google.com","_parent");}, 1000);
 }
 
 
- document.getElementById('teacher').addEventListener("click", handleAuthClick);
- document.getElementById('student').addEventListener("click", handleAuthClick);
+document.getElementById('teacher').addEventListener("click", handleAuthClick);
+document.getElementById('student').addEventListener("click", handleAuthClick);
+/*document.getElementById('logout_button').addEventListener("click", function(){
+  var win = window.open("https://accounts.google.com/logout","","width=500,height=500")
+  window.onload = function(){
+    win.close();
+    window.location = "localhost:8000/logout"
+  };
+  setTimeout(function(){
+    win.close();
+    window.location = "localhost:8000/logout"
+  },1000);
+});*/
