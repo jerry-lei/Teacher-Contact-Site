@@ -72,8 +72,11 @@ function handleAuthClick(event) {
  * Sign a user out
  */
 function signOut(){
-    var not_winning = window.open("https://accounts.google.com/logout","","width=0,height=0")
-    not_winning.onload = function(){not_winning.close();};
+    window.location = "logout";
+    var winning = window.open("https://accounts.google.com/logout","","width=500,height=500");
+    winning.onload = function(){
+      winning.close();
+    };
     //win.close();
     //setTimeout(function(){not_winning.close();},1000);
     //setTimeout(function(){window.open("google.com","_parent");}, 1000);
