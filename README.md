@@ -23,8 +23,8 @@ This Teacher Contact Site is a final project for a software development class. I
 - [ ] &nbsp; Student profile
 - [ ] &nbsp; Teachers cannot see students info
 - [ ] &nbsp; Teacher access to contactInfo.html
-- [x] &nbsp; Send single email (Through link. no form yet)
-- [ ] &nbsp; Send mass emails
+- [x] &nbsp; Send single email
+- [ ] &nbsp; Send mass emails (link to create email: https://mail.google.com/mail/?view=cm&fs=1&to=someone@example.com&su=SUBJECT&body=BODY&bcc=someone.else@example.com , www.w3schools.com/tags/ref_urlencode.asp)
 - [ ] &nbsp; Logs of letters/what kinds of letters/notes to a log
 - [ ] &nbsp; Links to send previously generated letters (with ability to edit)
 - [ ] &nbsp; (Stretch) Print address on double sided paper
@@ -36,14 +36,13 @@ This Teacher Contact Site is a final project for a software development class. I
 
 ### How to use (server sided):
 1. Get API keys from https://console.developers.google.com
-2. Save the json file and rename it to gmail.json in the directory named 'secret_key' next to the github repo
-- $ ~/Teacher-Contact-Site
-- $ ~/secret_key/gmail.json
+2. Save the json file and rename it to gmail.json in the directory named 'secret_key' next to the github repo<br>
+   ``` $ ~/Teacher-Contact-Site```<br>
+   ``` $ ~/secret_key/gmail.json```<br>
 3. Enable Gmail and Google+ APIs
 4. Necessary python imports:
-- flask
-- json
-- pymongo
-- bson 
-- (gmail stuff -- winton fill out later)
+  - flask
+  - json
+  - pymongo
+  - MongoDB
 5. Run app.py
