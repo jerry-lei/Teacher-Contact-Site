@@ -1,6 +1,14 @@
 from flask import Flask, render_template, session, request, redirect
 import database
 import json
+import base64
+from email.mime.audio import MIMEAudio
+from email.mime.base import MIMEBase
+from email.mime.image import MIMEImage
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import mimetypes
+import os
 
 app = Flask(__name__)
 
@@ -99,6 +107,17 @@ def addClasses():
         else:
             return render_template("addClass.html", username = session.get('username'), auth = session.get('auth'), email = session.get('email'))#,database.all_classes_in_period())
     return redirect("/")
+
+@app.route("/sendEmail")
+def sendEmail():
+    with open('../secret_key/gmail.json') as data_file:
+        data = json.load(data_file)
+    client_id = data['web']['client_id']
+    email = session.get('username')
+    message = "Test email"
+    sent = (service.users().messages().send(userId=user_id, body=message).execute())
+    print 'Message Id: %s' % message['id']
+    return sent
 
 if __name__ == "__main__":
     app.debug = True
