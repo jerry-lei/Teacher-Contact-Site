@@ -39,10 +39,10 @@ function handleAuthResult(authResult) {
 			'email': resp.result.emails[0].value,
 			'auth': auth,
 			success: function(data){
-			    console.log(data);
 			    //Should reload. Doesn't work right."
           //setTimeout(window.location.reload(true), 1);
-			    window.location.reload(true);
+			    //window.location.reload(true);
+			    window.location = "addUser";
 			}
 		    })
 		}, function(reason) {

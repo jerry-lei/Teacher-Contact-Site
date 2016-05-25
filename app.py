@@ -13,15 +13,14 @@ def index():
 
 @app.route('/addUser')
 def addUser():
-    session['username'] = request.args.get('username', 0, type=str)
-    session['email'] = request.args.get('email', 0, type=str)
-    session['auth'] = request.args.get('auth', 0, type=str)
-    print "LOL"
-    print session
-    if session.get('auth') == 'teacher':
-        database.create_teacher(session.get('username'), session.get('email'))
-    else:
-        database.create_student(session.get('username'), session.get('email'))
+    if len(request.args.keys()) != 0:
+        session['username'] = request.args.get('username', 0, type=str)
+        session['email'] = request.args.get('email', 0, type=str)
+        session['auth'] = request.args.get('auth', 0, type=str)
+        if session.get('auth') == 'teacher':
+            database.create_teacher(session.get('username'), session.get('email'))
+        else:
+            database.create_student(session.get('username'), session.get('email'))
     return redirect("/")
 
 @app.route("/testLogin", methods=["GET", "POST"])
