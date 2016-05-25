@@ -1,7 +1,7 @@
 // Your Client ID can be retrieved from your project in the Google
 // Developer Console, https://console.developers.google.com
 
-var CLIENT_ID
+var CLIENT_ID;
 
 function initClientId(client_id){
     CLIENT_ID = client_id;
@@ -72,27 +72,31 @@ function handleAuthClick(event) {
  * Sign a user out
  */
 function signOut(){
-    window.location = "logout";
-    var winning = window.open("https://accounts.google.com/logout","","width=500,height=500");
-    winning.onload = function(){
-      winning.close();
-    };
+    var winning = window.open("","","width=500,height=500");
+    winning.location = "https://accounts.google.com/logout";
+    //setTimeout(function(){winning.close();},3000);
+    //window.location = "logout";
+    setInterval(function(){
+      try{
+        winning.location.href;
+      }
+      catch(err){
+        winning.close();
+        window.location = "logout";
+      }
+    }, 100);
+}
+    //winning.addEventListener('load', function(){
+    //  winning.close();
+    //}, false);
+
+    //window.location = "logout";
+
     //win.close();
     //setTimeout(function(){not_winning.close();},1000);
     //setTimeout(function(){window.open("google.com","_parent");}, 1000);
-}
+
 
 
 document.getElementById('teacher').addEventListener("click", handleAuthClick);
 document.getElementById('student').addEventListener("click", handleAuthClick);
-/*document.getElementById('logout_button').addEventListener("click", function(){
-  var win = window.open("https://accounts.google.com/logout","","width=500,height=500")
-  window.onload = function(){
-    win.close();
-    window.location = "localhost:8000/logout"
-  };
-  setTimeout(function(){
-    win.close();
-    window.location = "localhost:8000/logout"
-  },1000);
-});*/
