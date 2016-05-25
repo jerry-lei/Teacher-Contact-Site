@@ -7,7 +7,7 @@ function initClientId(client_id){
     CLIENT_ID = client_id;
 };
 
-var SCOPES = ['https://www.googleapis.com/auth/plus.login'];
+var SCOPES = ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/plus.me'];
 
 /**
  * Check if current user has authorized this application.
@@ -28,30 +28,28 @@ function checkAuth() {
  */
 function handleAuthResult(authResult) {
     if (authResult && !authResult.error) {
-	if(authResult.hd === "stuy.edu"){
-	    gapi.client.load('plus', 'v1').then(function() {
-		var request = gapi.client.plus.people.get({
-		    'userId': 'me'
+	console.log(authResult);
+	gapi.client.load('plus', 'v1').then(function() {
+	    var request = gapi.client.plus.people.get({
+		'userId': 'me'
+	    })
+	    request.then(function(resp) {
+		console.log(resp);
+		$.getJSON("/addUser", {
+		    'username': resp.result.displayName,
+		    'email': resp.result.emails[0].value,
+		    'auth': auth,
+		    success: function(data){
+			//Should reload. Doesn't work right."
+			//setTimeout(window.location.reload(true), 1);
+			//window.location.reload(true);
+			window.location = "/addUser";
+		    }
 		})
-		request.then(function(resp) {
-		    $.getJSON("/addUser", {
-			'username': resp.result.displayName,
-			'email': resp.result.emails[0].value,
-			'auth': auth,
-			success: function(data){
-			    //Should reload. Doesn't work right."
-          //setTimeout(window.location.reload(true), 1);
-			    //window.location.reload(true);
-			    window.location = "addUser";
-			}
-		    })
-		}, function(reason) {
-		    console.log('Error: ' + reason.result.error.message);
-		});
+	    }, function(reason) {
+		console.log('Error: ' + reason.result.error.message);
 	    });
-	}else{
-	    signOut();
-	}
+	});
     }
 };
 
