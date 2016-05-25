@@ -14,8 +14,8 @@ This Teacher Contact Site is a final project for a software development class. I
 - [ ] May 26, 2016: Second meeting with client
 
 ### Todo (Client requested):
-- [x] &nbsp; Login through Google API (stuy.edu only) -- SOMETIMES REQUIRES REFRESH
-- [x] &nbsp; Logout (technically) -- LOGOUT PAGE WILL NOT AUTO CLOSE
+- [x] &nbsp; Login through Google API (stuy.edu only) 
+- [x] &nbsp; Logout 
 - [x] &nbsp; Import contact info of students
 - [x] &nbsp; Contact info overrides
 - [x] &nbsp; Allow students to import contact info of parents
