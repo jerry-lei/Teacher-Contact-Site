@@ -40,9 +40,8 @@ function handleAuthResult(authResult) {
 			'auth': auth,
 			success: function(data){
 			    //Should reload. Doesn't work right."
-			    //setTimeout(window.location.reload(true), 1);
+          //setTimeout(window.location.reload(true), 1);
 			    window.location.reload(true);
-			    //window.location = "/";
 			}
 		    })
 		}, function(reason) {
@@ -53,7 +52,8 @@ function handleAuthResult(authResult) {
 	    signOut()
 	}
     };
-}
+};
+
 /**
  * Initiate auth flow in response to user clicking authorize button.
  *
@@ -73,8 +73,6 @@ function handleAuthClick(event) {
 function signOut(){
     var winning = window.open("","","width=500,height=500");
     winning.location = "https://accounts.google.com/logout";
-    //setTimeout(function(){winning.close();},3000);
-    //window.location = "logout";
     setInterval(function(){
       try{
         winning.location.href;
@@ -85,15 +83,6 @@ function signOut(){
       }
     }, 100);
 }
-    //winning.addEventListener('load', function(){
-    //  winning.close();
-    //}, false);
-
-    //window.location = "logout";
-
-    //win.close();
-    //setTimeout(function(){not_winning.close();},1000);
-    //setTimeout(function(){window.open("google.com","_parent");}, 1000);
 
 document.getElementById('teacher').addEventListener("click", handleAuthClick);
 document.getElementById('student').addEventListener("click", handleAuthClick);
