@@ -34,6 +34,10 @@ def logout():
 def student_show():
     pass
 
+@app.route("/myClasses")
+def student_class_show():
+    pass
+    
 @app.route("/classes")
 @app.route("/classes/<class_id>", methods=["GET", "POST"])
 def classes(class_id = ""):

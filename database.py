@@ -60,7 +60,7 @@ def create_class(teacher_name, teacher_email, course_code, class_name, class_per
 def delete_class(class_id):
     classes = db['classes']
     return classes.remove({'_id': ObjectId(class_id)})
-    
+
 def find_classes(teacher_email):
     classes = db['classes']
     return classes.find({'teacher_email': teacher_email})
@@ -78,18 +78,19 @@ def all_classes_in_period(class_periods): #class_period in string form (array to
         class_by_period.append(class_periods[x][1:])
     return classes.find({'class_period': {"$in": class_by_period}})
 
-#print all_classes_in_period(['p1', 'p6'])
+def classes_student_in(student_email):
+    pass
 
 def add_to_class(student_email, class_id):
     classes = db['classes']
     classes.find_one_and_update({'_id' : ObjectId(class_id)},
                                        {'$addToSet': {'students': student_email}})
-    
+
 def remove_from_class(student_email, class_id):
     classes = db['classes']
     classes.find_one_and_update({'_id' : ObjectId(class_id)},
                                 {'$pull': {'students': student_email}})
-    
+
 def all_students_in_class(class_id):
     students = []
     emails = db['classes'].find_one({'_id': ObjectId(class_id)}).get('students')
