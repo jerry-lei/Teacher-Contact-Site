@@ -5,12 +5,13 @@ import json
 
 app = Flask(__name__)
 
+with open('../secret_key/gmail.json') as data_file:
+    data = json.load(data_file)
+client_id = data['web']['client_id']
+
 @app.route("/")
 def index():
-    with open('../secret_key/gmail.json') as data_file:
-        data = json.load(data_file)
-    client_id = data['web']['client_id']
-    return render_template("index.html", username = session.get('username'), auth = session.get('auth'), client_id = client_id)
+    return render_template("index.html", client_id = client_id, username = session.get('username'), auth = session.get('auth'))
 
 @app.route('/addUser')
 def addUser():
@@ -40,13 +41,13 @@ def classes(class_id = ""):
         if session.get('auth') != 'teacher':
             return redirect("/")
         else:
-            return render_template("classes.html", username = session.get('username'), auth=session.get('auth'), classes = database.find_classes(session.get('email')))
+            return render_template("classes.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), classes = database.find_classes(session.get('email')))
     else:
         c1 = database.find_class(class_id)
         if c1 == None:
             return redirect("/")
         if request.method == "GET":
-            return render_template("class.html", username = session.get('username'), auth=session.get('auth'), class_one = c1, students = database.all_students_in_class(class_id))
+            return render_template("class.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), class_one = c1, students = database.all_students_in_class(class_id))
         if request.method == "POST":
             button = request.form['button']
             if button == "Enroll in Class":
@@ -68,7 +69,7 @@ def sendMail(class_id):
     if c1 == None:
         return redirect("/")
     if request.method == "GET":
-        return render_template("sendMail.html", username = session.get('username'), auth=session.get('auth'), class_one = c1, students = database.all_students_in_class(class_id))
+        return render_template("sendMail.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), class_one = c1, students = database.all_students_in_class(class_id))
     if request.method == "POST":
         button = request.form['button']
         #database.log_mail (FUNCTION THAT CLIENT ASKED FOR)
@@ -86,7 +87,7 @@ def createClass():
         if session.get('auth') != 'teacher':
             return redirect("/")
         else:
-            return render_template("createClass.html", username = session.get('username'), auth = session.get('auth'), email = session.get('email'))
+            return render_template("createClass.html",client_id = client_id, username = session.get('username'), auth = session.get('auth'), email = session.get('email'))
     else:
         database.create_class(session.get('username'), session.get('email'), request.form.get('course_code'), request.form.get('course_name'), request.form.get('course_period'))
         return redirect("/")
@@ -97,7 +98,7 @@ def contactInfo():
         if session.get('auth') != 'student':
             return redirect("/")
         else:
-            return render_template("contactInfo.html", username = session.get('username'), auth = session.get('auth'), email = session.get('email'), student = database.check_contact_info(session.get('email')))
+            return render_template("contactInfo.html",client_id = client_id, username = session.get('username'), auth = session.get('auth'), email = session.get('email'), student = database.check_contact_info(session.get('email')))
     else:
         database.add_contact_info(session.get('email'), request.form.get('sname'), request.form.get('sphone'), request.form.get('address'), request.form.get('pname'), request.form.get('pphone'), request.form.get('pemail'), request.form.get('gname'), request.form.get('gphone'), request.form.get('gemail'))
         return redirect("/")
@@ -108,14 +109,14 @@ def addClasses():
         if session.get('auth') != 'student':
             return redirect("/")
         else:
-            return render_template("addClass.html", username = session.get('username'), auth = session.get('auth'), email = session.get('email'))
+            return render_template("addClass.html",client_id = client_id, username = session.get('username'), auth = session.get('auth'), email = session.get('email'))
     else:
         button = request.form['button']
         if button == "Look":
             checked = request.form.getlist("checks")
-            return render_template("addClass.html", username = session.get('username'), auth = session.get('auth'), email = session.get('email'), classes = database.all_classes_in_period(checked))
+            return render_template("addClass.html",client_id = client_id, username = session.get('username'), auth = session.get('auth'), email = session.get('email'), classes = database.all_classes_in_period(checked))
         else:
-            return render_template("addClass.html", username = session.get('username'), auth = session.get('auth'), email = session.get('email'))#,database.all_classes_in_period())
+            return render_template("addClass.html",client_id = client_id, username = session.get('username'), auth = session.get('auth'), email = session.get('email'))#,database.all_classes_in_period())
     return redirect("/")
 
 
