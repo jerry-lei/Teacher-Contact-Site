@@ -29,6 +29,10 @@ def logout():
     session.clear()
     return redirect("/")
 
+@app.route("/student/<student_id>")
+def student_show():
+    pass
+
 @app.route("/classes")
 @app.route("/classes/<class_id>", methods=["GET", "POST"])
 def classes(class_id = ""):
