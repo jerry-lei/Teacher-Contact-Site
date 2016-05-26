@@ -7,7 +7,8 @@ function initClientId(client_id){
     CLIENT_ID = client_id;
 };
 
-var SCOPES = ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/plus.me'];
+//'https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/plus.me', 
+var SCOPES = ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'];
 
 /**
  * Check if current user has authorized this application.
