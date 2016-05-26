@@ -28,32 +28,33 @@ function checkAuth() {
  */
 function handleAuthResult(authResult) {
     if (authResult && !authResult.error) {
-	if(authResult.hd === "stuy.edu"){
 	    gapi.client.load('plus', 'v1').then(function() {
 		var request = gapi.client.plus.people.get({
 		    'userId': 'me'
 		})
 		request.then(function(resp) {
-		    $.getJSON("/addUser", {
-			'username': resp.result.displayName,
-			'email': resp.result.emails[0].value,
-			'auth': auth,
-			success: function(data){
-			    //Should reload. Doesn't work right."
-			    //setTimeout(window.location.reload(true), 1);
-			    //window.location.reload(true);
-			}
-		    })
+		    if(resp.result.domain === "stuy.edu"){
+			$.getJSON("/addUser", {
+			    'username': resp.result.displayName,
+			    'email': resp.result.emails[0].value,
+			    'auth': auth,
+			    success: function(data){
+				//Should reload. Doesn't work right."
+				//setTimeout(window.location.reload(true), 1);
+				//window.location.reload(true);
+			    }
+			})
+		    }else{
+			signOut();
+		    }
 		}, function(reason) {
-		    console.log('Error: ' + reason.result.error.message);
+			console.log('Error: ' + reason.result.error.message);
 		});
 	    });
-	}else{
-	    signOut()
-	}
-    };
-};
-
+    }
+}
+					
+						
 /**
  * Initiate auth flow in response to user clicking authorize button.
  *
