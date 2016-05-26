@@ -81,7 +81,9 @@ def add_to_class(student_email, class_id):
     classes = db['classes']
     classes.find_one_and_update({'_id' : ObjectId(class_id)},
                                        {'$addToSet': {'students': student_email}})
-
+def remove_from_class(student_email, class_id):
+    pass
+    
 def all_students_in_class(class_id):
     students = []
     emails = db['classes'].find_one({'_id': ObjectId(class_id)}).get('students')
@@ -90,4 +92,3 @@ def all_students_in_class(class_id):
     for email in emails:
         students.append(db['students'].find_one({'student_email': email}))
     return students
-    

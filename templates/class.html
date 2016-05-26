@@ -14,9 +14,23 @@
       {{class_one.teacher_email}}
     </a>
     {% if auth == "student" %}
-    <form method="post">
+      <br>
+      <form method="post">
+        <input type="submit" name="button" id="button" value="Enroll in Class">
+        <input type="submit" name="button" id="button" value="Leave Class">
+      </form>
+    <!--<form method="post">
       <button type="submit">Enroll in Class</button>
-    </form>
+    </form>-->
+    {% endif %}
+    {% if auth == "teacher" %}
+      <br>
+      <form method="post">
+        <input type="submit" name="button" id="button" value="Email Multiple Students">
+      </form>
+    <!--<form method = "post">
+      <button type="submit">Email multiple students</button>
+    </form>-->
     {% endif %}
 </center>
 {% endblock %}

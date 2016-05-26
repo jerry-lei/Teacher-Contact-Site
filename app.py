@@ -42,11 +42,18 @@ def classes(class_id = ""):
             return redirect("/")
         if request.method == "GET":
             return render_template("class.html", username = session.get('username'), auth=session.get('auth'), class_one = c1, students = database.all_students_in_class(class_id))
-        else:
-            print class_id
-            database.add_to_class(session.get('email'), class_id)
-            return redirect("/classes/"+class_id)
-        
+        if request.method == "POST":
+            button = request.form['button']
+            if button == "Enroll in Class":
+                print class_id
+                database.add_to_class(session.get('email'), class_id)
+                return redirect("/classes/"+class_id)
+            if button == "Leave Class":
+                database.remove_from_class(session.get('email'), class_id)
+                return redirect("/classes/"+class_id)
+            if button == "Email Multiple Students":
+                return redirect("/sendMail/"+class_id)
+
 @app.route("/createClass", methods=["GET", "POST"])
 def createClass():
     if request.method == "GET":
