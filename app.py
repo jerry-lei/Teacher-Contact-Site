@@ -23,19 +23,6 @@ def addUser():
             database.create_student(session.get('username'), session.get('email'))
     return redirect("/")
 
-@app.route("/testLogin", methods=["GET", "POST"])
-def testLogin():
-    if request.method == "GET":
-        if session.get('username') != None:
-            return redirect("/")
-        else:
-            return render_template("login.html", username = None, auth = None)
-    else:
-        username = request.form.get("login")
-        session['username'] = username
-        session['auth'] = 'test'
-        return redirect("/")
-
 @app.route("/logout")
 def logout():
     session.clear()
