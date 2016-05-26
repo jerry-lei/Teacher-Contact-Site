@@ -3,35 +3,31 @@
 {% block body %}
 <center>
     {{class_one.teacher_name}} - {{class_one.class_name}} - Period {{class_one.class_period}}
-    <br><br>
-    Students
-    <br>
-    {% for student in students %}
-    <a href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to={{student.student_email}}&su={{username}} - {{class_one.class_name}} - Period {{class_one.class_period}}">{{student.student_name}}</a>
-    <br>
-    {% endfor %}<br><br>
-    Write the teacher: <a href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to={{class_one.teacher_email}}&su={{username}} - {{class_one.class_name}} - Period {{class_one.class_period}}">
-      {{class_one.teacher_email}}
-    </a>
+    <br><br><br>
+    <!-- STUDENT SHOW -->
     {% if auth == "student" %}
-      <br>
+      Students<br>
+      {% for student in students %}
+        <a onclick="popupEmail('{{student.student_email}}', '{{username}}', '{{class_one.class_name}}', '{{class_one.class_period}}')">{{student.student_name}}</a>
+        <br>
+      {% endfor %}
+      <br><br>
+      Write the teacher: <a onclick="popupEmail('{{class_one.teacher_email}}', '{{username}}', '{{class_one.class_name}}', '{{class_one.class_period}}')">{{class_one.teacher_email}}</a><br>
       <form method="post">
         <input type="submit" name="button" id="button" value="Enroll in Class">
         <input type="submit" name="button" id="button" value="Leave Class">
       </form>
-    <!--<form method="post">
-      <button type="submit">Enroll in Class</button>
-    </form>-->
     {% endif %}
+    <!-- TEACHER SHOW -->
     {% if auth == "teacher" %}
       <br>
       <form method="post">
         <input type="submit" name="button" id="button" value="Email Multiple Students">
         <br>
-	<div id="hideOriginal" style="display:block;">
-	  <br>
+	       <div id="hideOriginal" style="display:block;">
+	          <br>
           <input type="button" value="Delete This Class" onclick="showConfirm()">
-	</div>
+	       </div>
         <br><br><br>
         <div id="confirmDelete" style="display:none;">
             <input type="submit" name="button" id="button" value="Confirm Delete">
@@ -40,9 +36,6 @@
 	    <input type="button" value="Cancel" onclick="returnOriginal()">
         </div>
       </form>
-    <!--<form method = "post">
-      <button type="submit">Email multiple students</button>
-    </form>-->
     {% endif %}
 </center>
 {% endblock %}
