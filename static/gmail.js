@@ -80,7 +80,7 @@ function signOut(){
       }
       catch(err){
         winning.close();
-        window.location = "logout";
+        window.location = "/logout";
       }
     }, 100);
 }
