@@ -21,10 +21,10 @@ This Teacher Contact Site is a final project for a software development class. I
 - [x] &nbsp; Allow students to import contact info of parents
 - [x] &nbsp; Class profile
 - [ ] &nbsp; Student profile
-- [ ] &nbsp; Teachers cannot see students info
+- [ ] &nbsp; Teachers see students info
 - [ ] &nbsp; Teacher access to contactInfo.html
 - [x] &nbsp; Send single email
-- [ ] &nbsp; Send mass emails (link to create email: https://mail.google.com/mail/?view=cm&fs=1&to=someone@example.com&su=SUBJECT&body=BODY&bcc=someone.else@example.com , www.w3schools.com/tags/ref_urlencode.asp)
+- [x] &nbsp; Send mass emails (link to create email: https://mail.google.com/mail/?view=cm&fs=1&to=someone@example.com&su=SUBJECT&body=BODY&bcc=someone.else@example.com , www.w3schools.com/tags/ref_urlencode.asp)
 - [ ] &nbsp; Logs of letters/what kinds of letters/notes to a log
 - [ ] &nbsp; Links to send previously generated letters (with ability to edit)
 - [ ] &nbsp; (Stretch) Print address on double sided paper
