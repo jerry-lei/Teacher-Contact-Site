@@ -40,8 +40,8 @@ function handleAuthResult(authResult) {
 			'auth': auth,
 			success: function(data){
 			    //Should reload. Doesn't work right."
-          //setTimeout(window.location.reload(true), 1);
-			    window.location.reload(true);
+			    //setTimeout(window.location.reload(true), 1);
+			    //window.location.reload(true);
 			}
 		    })
 		}, function(reason) {
