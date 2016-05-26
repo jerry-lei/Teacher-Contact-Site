@@ -1,5 +1,6 @@
 from flask import Flask, render_template, session, request, redirect
 import database
+import utils
 import json
 
 app = Flask(__name__)
@@ -54,6 +55,24 @@ def classes(class_id = ""):
             if button == "Email Multiple Students":
                 return redirect("/sendMail/"+class_id)
 
+@app.route("/sendMail/<class_id>", methods=["GET","POST"])
+def sendMail(class_id):
+    c1 = database.find_class(class_id)
+    if c1 == None:
+        return redirect("/")
+    if request.method == "GET":
+        return render_template("sendMail.html", username = session.get('username'), auth=session.get('auth'), class_one = c1, students = database.all_students_in_class(class_id))
+    if request.method == "POST":
+        button = request.form['button']
+        #database.log_mail (FUNCTION THAT CLIENT ASKED FOR)
+        if button == "Go to Email Page":
+            to = request.form.getlist("checks")
+            body = request.form.get("body_name")
+            subject = request.form.get("subject_name")
+            gmail_link = utils.make_link(body, to, subject)
+            print gmail_link
+            return redirect(gmail_link)
+
 @app.route("/createClass", methods=["GET", "POST"])
 def createClass():
     if request.method == "GET":
@@ -92,9 +111,6 @@ def addClasses():
             return render_template("addClass.html", username = session.get('username'), auth = session.get('auth'), email = session.get('email'))#,database.all_classes_in_period())
     return redirect("/")
 
-@app.route("/sendEmail")
-def sendEmail():
-    return render_template("sendMail.html")
 
 if __name__ == "__main__":
     app.debug = True
