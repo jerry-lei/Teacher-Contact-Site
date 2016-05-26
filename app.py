@@ -59,7 +59,7 @@ def classes(class_id = ""):
             if button == "Email Multiple Students":
                 return redirect("/sendMail/"+class_id)
             if button == "Confirm Delete":
-                delete_class(class_id)
+                database.delete_class(class_id)
                 return redirect("/classes")
 
 @app.route("/sendMail/<class_id>", methods=["GET","POST"])

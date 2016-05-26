@@ -53,13 +53,13 @@ def create_class(teacher_name, teacher_email, course_code, class_name, class_per
                  'course_code': course_code,
                  'class_name': class_name,
                  'class_period': class_period,
-                 '_id':  ObjectId()}
+                }
     classes.insert_one(new_class)
     db['teachers'].find_one_and_update({'teacher_email': teacher_email},
                                  {'$push':{'classes': new_class.get('_id')}})
 def delete_class(class_id):
     classes = db['classes']
-    return classes.remove({'_id': class_id})
+    return classes.remove({'_id': ObjectId(class_id)})
     
 def find_classes(teacher_email):
     classes = db['classes']
