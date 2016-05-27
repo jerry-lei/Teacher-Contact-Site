@@ -99,3 +99,20 @@ def all_students_in_class(class_id):
     for email in emails:
         students.append(db['students'].find_one({'student_email': email}))
     return students
+
+def add_log(teacher_name, student_name):
+  logs = db['logs']
+  time = datetime.now()
+  new_log = {'teacher_name': teacher_name,
+             'student_name': student_name,
+             'time': str(time)
+            }
+  logs.insert_one(new_log)
+
+def find_log(teacher_name):
+  logs = db['logs']
+  return logs.find({'teacher_name': teacher_name})
+
+def delete_log(time):
+  logs = db['logs']
+  return logs.remove({'time': time})

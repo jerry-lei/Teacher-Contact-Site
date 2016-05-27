@@ -83,6 +83,8 @@ def sendMail(class_id):
             subject = request.form.get("subject_name")
             gmail_link = utils.make_link(body, to, subject)
             print gmail_link
+            for student in request.form.getlist("checks"):
+                database.add_log(session.get('username'),student)  
             return redirect(gmail_link)
 
 @app.route("/createClass", methods=["GET", "POST"])
@@ -122,6 +124,19 @@ def addClasses():
         else:
             return render_template("addClass.html",client_id = client_id, username = session.get('username'), auth = session.get('auth'), email = session.get('email'))#,database.all_classes_in_period())
     return redirect("/")
+
+@app.route("/log", methods=["GET","POST"])
+@app.route("/log/<time>", methods=["GET","POST"])
+def log(time = ""):
+    if request.method == "GET":
+        if time == "":
+            if session.get('auth') != 'teacher':
+                return redirect("/")
+            else:
+                return render_template("log.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), logs = database.find_log(session.get('username')))
+        else:
+            database.delete_log(time)
+            return render_template("log.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), logs = database.find_log(session.get('username')))
 
 
 if __name__ == "__main__":
