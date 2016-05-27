@@ -55,10 +55,21 @@ def create_class(teacher_name, teacher_email, course_code, class_name, class_per
                  'class_period': class_period,
                 }
     classes.insert_one(new_class)
-    db['teachers'].find_one_and_update({'teacher_email': teacher_email},
-                                 {'$push':{'classes': new_class.get('_id')}})
+    teachers = db['teachers']
+    teachers.find_one_and_update({'teacher_email': teacher_email},
+                                 {'$push':{'classes': ObjectId(new_class.get('_id'))}})
+
 def delete_class(class_id):
+    teachers = db['teachers']
     classes = db['classes']
+    students = db['students']
+    c = classes.find_one({'_id': ObjectId(class_id)})
+    teachers.find_one_and_update({'teacher_email': c.get('teacher_email')},
+                                {'$pull':{'classes': ObjectId(class_id)}})
+    if c.get('students') != None:
+        for x in c.get('students'):
+            students.find_one_and_update({'student_email': x},
+                                        {'$pull': {'classes': OBjectId(class_id)}})
     return classes.remove({'_id': ObjectId(class_id)})
 
 def find_classes(teacher_email):
@@ -84,16 +95,19 @@ def classes_student_in(student_email):
 def add_to_class(student_email, class_id):
     classes = db['classes']
     classes.find_one_and_update({'_id' : ObjectId(class_id)},
-                                       {'$addToSet': {'students': student_email}})
+                                {'$addToSet': {'students': student_email}})
     students = db['students']
     students.find_one_and_update({'student_email': student_email},
-                                 {'$addToSet': {'classes': class_id}})
+                                 {'$addToSet': {'classes': ObjectId(class_id)}})
 
 def remove_from_class(student_email, class_id):
     classes = db['classes']
     classes.find_one_and_update({'_id' : ObjectId(class_id)},
                                 {'$pull': {'students': student_email}})
-
+    students = db['students']
+    students.find_one_and_update({'student_email': student_email},
+                                 {'$pull': {'classes': ObjectId(class_id)}})
+    
 def all_students_in_class(class_id):
     students = []
     emails = db['classes'].find_one({'_id': ObjectId(class_id)}).get('students')

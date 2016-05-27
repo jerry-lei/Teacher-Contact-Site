@@ -4,14 +4,14 @@
 <center>
     {{class_one.teacher_name}} - {{class_one.class_name}} - Period {{class_one.class_period}}
     <br><br><br>
-    <!-- STUDENT SHOW -->
-    {% if auth == "student" %}
       Students<br>
       {% for student in students %}
         <a onclick="popupEmail('{{student.student_email}}', '{{username}}', '{{class_one.class_name}}', '{{class_one.class_period}}')">{{student.student_name}}</a>
         <br>
       {% endfor %}
       <br><br>
+    <!-- STUDENT SHOW -->
+    {% if auth == "student" %}
       Write the teacher: <a onclick="popupEmail('{{class_one.teacher_email}}', '{{username}}', '{{class_one.class_name}}', '{{class_one.class_period}}')">{{class_one.teacher_email}}</a><br>
       <form method="post">
         <input type="submit" name="button" id="button" value="Enroll in Class">
