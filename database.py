@@ -81,6 +81,9 @@ def add_to_class(student_email, class_id):
     classes = db['classes']
     classes.find_one_and_update({'_id' : ObjectId(class_id)},
                                        {'$addToSet': {'students': student_email}})
+    students = db['students']
+    students.find_one_and_update({'student_email': student_email},
+                                 {'$addToSet': {'classes': class_id}})
 
 def all_students_in_class(class_id):
     students = []
