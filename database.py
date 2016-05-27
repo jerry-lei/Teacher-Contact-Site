@@ -85,6 +85,9 @@ def add_to_class(student_email, class_id):
     classes = db['classes']
     classes.find_one_and_update({'_id' : ObjectId(class_id)},
                                        {'$addToSet': {'students': student_email}})
+    students = db['students']
+    students.find_one_and_update({'student_email': student_email},
+                                 {'$addToSet': {'classes': class_id}})
 
 def remove_from_class(student_email, class_id):
     classes = db['classes']
@@ -116,6 +119,7 @@ def find_log(teacher_name):
 
 def delete_log(teacher_name,student_name,time):
   logs = db['logs']
+<<<<<<< HEAD
   teacher_logs = logs.find({'teacher_name': teacher_name})
   log_by_student = []
   for item in teacher_logs:
@@ -127,3 +131,6 @@ def delete_log(teacher_name,student_name,time):
       log_by_time.append(item)
   print log_by_time[0]
   return logs.remove({'_id': ObjectId(log_by_time[0]['_id'])})
+=======
+  return logs.remove({'time': time})
+>>>>>>> 687271f1d5ca5cd6089da4e2bf98b0d52687adb4
