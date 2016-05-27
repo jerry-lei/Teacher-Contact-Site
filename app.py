@@ -126,8 +126,8 @@ def addClasses():
     return redirect("/")
 
 @app.route("/log", methods=["GET","POST"])
-@app.route("/log/<time>", methods=["GET","POST"])
-def log(time = ""):
+@app.route("/log/<student_name>/<time>", methods=["GET","POST"])
+def log(student_name = "", time = ""):
     if request.method == "GET":
         if time == "":
             if session.get('auth') != 'teacher':
@@ -135,7 +135,7 @@ def log(time = ""):
             else:
                 return render_template("log.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), logs = database.find_log(session.get('username')))
         else:
-            database.delete_log(time)
+            database.delete_log(session.get('username'),student_name,time)
             return render_template("log.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), logs = database.find_log(session.get('username')))
 
 
