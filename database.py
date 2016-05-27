@@ -105,7 +105,8 @@ def add_log(teacher_name, student_name):
   time = datetime.now()
   new_log = {'teacher_name': teacher_name,
              'student_name': student_name,
-             'time': str(time)
+             'time': str(time),
+             'notes':''
             }
   logs.insert_one(new_log)
 
@@ -113,6 +114,16 @@ def find_log(teacher_name):
   logs = db['logs']
   return logs.find({'teacher_name': teacher_name})
 
-def delete_log(time):
+def delete_log(teacher_name,student_name,time):
   logs = db['logs']
-  return logs.remove({'time': time})
+  teacher_logs = logs.find({'teacher_name': teacher_name})
+  log_by_student = []
+  for item in teacher_logs:
+    if item['student_name'] == student_name:
+      log_by_student.append(item)
+  log_by_time = []
+  for item in log_by_student:
+    if item['time'] == time:
+      log_by_time.append(item)
+  print log_by_time[0]
+  return logs.remove({'_id': ObjectId(log_by_time[0]['_id'])})
