@@ -53,10 +53,13 @@ def create_class(teacher_name, teacher_email, course_code, class_name, class_per
                  'course_code': course_code,
                  'class_name': class_name,
                  'class_period': class_period,
-                 '_id':  ObjectId()}
+                }
     classes.insert_one(new_class)
     db['teachers'].find_one_and_update({'teacher_email': teacher_email},
                                  {'$push':{'classes': new_class.get('_id')}})
+def delete_class(class_id):
+    classes = db['classes']
+    return classes.remove({'_id': ObjectId(class_id)})
 
 def find_classes(teacher_email):
     classes = db['classes']
@@ -75,7 +78,8 @@ def all_classes_in_period(class_periods): #class_period in string form (array to
         class_by_period.append(class_periods[x][1:])
     return classes.find({'class_period': {"$in": class_by_period}})
 
-#print all_classes_in_period(['p1', 'p6'])
+def classes_student_in(student_email):
+    pass
 
 def add_to_class(student_email, class_id):
     classes = db['classes']
@@ -85,6 +89,11 @@ def add_to_class(student_email, class_id):
     students.find_one_and_update({'student_email': student_email},
                                  {'$addToSet': {'classes': class_id}})
 
+def remove_from_class(student_email, class_id):
+    classes = db['classes']
+    classes.find_one_and_update({'_id' : ObjectId(class_id)},
+                                {'$pull': {'students': student_email}})
+
 def all_students_in_class(class_id):
     students = []
     emails = db['classes'].find_one({'_id': ObjectId(class_id)}).get('students')
@@ -93,4 +102,20 @@ def all_students_in_class(class_id):
     for email in emails:
         students.append(db['students'].find_one({'student_email': email}))
     return students
-    
+
+def add_log(teacher_name, student_name):
+  logs = db['logs']
+  time = datetime.now()
+  new_log = {'teacher_name': teacher_name,
+             'student_name': student_name,
+             'time': str(time)
+            }
+  logs.insert_one(new_log)
+
+def find_log(teacher_name):
+  logs = db['logs']
+  return logs.find({'teacher_name': teacher_name})
+
+def delete_log(time):
+  logs = db['logs']
+  return logs.remove({'time': time})
