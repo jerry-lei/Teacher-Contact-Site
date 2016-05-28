@@ -35,8 +35,11 @@ def student_show():
     pass
 
 @app.route("/myClasses")
-def student_class_show():
-    pass
+def myClasses():
+    if session.get('auth') != 'student':
+        return redirect("/")
+    else:
+        return render_template("classes.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), classes = database.find_student_classes(session.get('email')))
     
 @app.route("/classes")
 @app.route("/classes/<class_id>", methods=["GET", "POST"])
@@ -45,7 +48,7 @@ def classes(class_id = ""):
         if session.get('auth') != 'teacher':
             return redirect("/")
         else:
-            return render_template("classes.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), classes = database.find_classes(session.get('email')))
+            return render_template("classes.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), classes = database.find_teacher_classes(session.get('email')))
     else:
         c1 = database.find_class(class_id)
         if c1 == None:
@@ -55,7 +58,6 @@ def classes(class_id = ""):
         if request.method == "POST":
             button = request.form['button']
             if button == "Enroll in Class":
-                print class_id
                 database.add_to_class(session.get('email'), class_id)
                 return redirect("/classes/"+class_id)
             if button == "Leave Class":
@@ -82,7 +84,6 @@ def sendMail(class_id):
             body = request.form.get("body_name")
             subject = request.form.get("subject_name")
             gmail_link = utils.make_link(body, to, subject)
-            print gmail_link
             for student in request.form.getlist("checks"):
                 database.add_log(session.get('username'),student)  
             return redirect(gmail_link)

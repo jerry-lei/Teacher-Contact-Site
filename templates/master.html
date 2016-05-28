@@ -62,52 +62,52 @@
     	      <a onclick="signOut();"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
     	    </li>
           </ul>
-	    {% else %}
-	    {% if auth == "teacher" %}
-	    <li>
-	      <a href="/classes">Classes</a>
-	    </li>
-	    <li>
-	      <a href="/createClass">Create Class</a>
-	    </li>
-      <li>
-        <a href="/log">Mail Log</a>
-      </li>
-      </ul>
-	    {% elif auth == "student" %}
-	    <li>
-	      <a href="/contactInfo">Contact Information</a>
-	    </li>
-	    <li>
-	      <a href="/addClasses">Add Classes</a>
-	    </li>
-      <li>
-        <a href="/myClasses">My Classes</a>
-      </li>
-      </ul>
-	    {% endif %}
-      <ul class="nav navbar-nav navbar-right">
-	    <li>
-	      <a onclick="signOut();"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
-	    </li>
-      </ul>
-	    {% endif %}
-        </div>
-        <!-- /.navbar-collapse -->
-      </div>
-      <!-- /.container -->
-    </nav>
+	  {% else %}
+	  {% if auth == "teacher" %}
+	  <li>
+	    <a href="/classes">Classes</a>
+	  </li>
+	  <li>
+	    <a href="/createClass">Create Class</a>
+	  </li>
+	  <li>
+            <a href="/log">Mail Log</a>
+	  </li>
+</ul>
+{% elif auth == "student" %}
+<li>
+  <a href="/contactInfo">Contact Information</a>
+</li>
+<li>
+  <a href="/addClasses">Add Classes</a>
+</li>
+<li>
+  <a href="/myClasses">My Classes</a>
+</li>
+</ul>
+{% endif %}
+<ul class="nav navbar-nav navbar-right">
+  <li>
+    <a onclick="signOut();"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+  </li>
+</ul>
+{% endif %}
+</div>
+<!-- /.navbar-collapse -->
+</div>
+<!-- /.container -->
+</nav>
 
-    {% block body %}{% endblock %}
+{% block body %}{% endblock %}
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="{{url_for('static', filename='gmail.js')}}"></script>
-    <script src="{{url_for('static', filename='utils.js')}}"></script>
-    <script>
-      initClientId("{{client_id}}");
-    </script>
-    <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
-  </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="{{url_for('static', filename='gmail.js')}}"></script>
+<script src="{{url_for('static', filename='utils.js')}}"></script>
+<script>
+  initClientId("{{client_id}}");
+</script>
+<script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+</body>
 
 </html>

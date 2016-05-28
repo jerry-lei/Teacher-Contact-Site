@@ -1,0 +1,10 @@
+{% extends "master.html" %}
+
+{% block body %}
+<center>
+{% for item in classes %}
+<a href="/classes/{{item._id}}">{{item.class_name}} Period {{item.class_period}}</a>
+<br><br>
+{% endfor %}
+</center>
+{% endblock %}

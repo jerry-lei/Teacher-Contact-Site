@@ -68,17 +68,24 @@ def delete_class(class_id):
                                 {'$pull':{'classes': ObjectId(class_id)}})
     if c.get('students') != None:
         for x in c.get('students'):
-            students.find_one_and_update({'student_email': x},
-                                        {'$pull': {'classes': OBjectId(class_id)}})
-    return classes.remove({'_id': ObjectId(class_id)})
+            students.find_one_and_update({'student_email': x}, {'$pull': {'classes': ObjectId(class_id)}})
 
-def find_classes(teacher_email):
+def find_student_classes(student_email):
+    students = db['students']
+    classes = db['classes']
+    allClasses = []
+    classIds = students.find_one({'student_email': student_email}).get('classes')
+    if classIds != None:
+        for x in classIds:
+            allClasses.append(classes.find_one({'_id': ObjectId(x)}))
+    return allClasses
+            
+def find_teacher_classes(teacher_email):
     classes = db['classes']
     return classes.find({'teacher_email': teacher_email})
 
 def find_class(class_id):
     classes = db['classes']
-    #return classes.find_one({'_id': class_id})
     ret_class = classes.find_one({'_id': ObjectId(class_id)})
     return ret_class
 
@@ -142,5 +149,4 @@ def delete_log(teacher_name,student_name,time):
   for item in log_by_student:
     if item['time'] == time:
       log_by_time.append(item)
-  print log_by_time[0]
   return logs.remove({'_id': ObjectId(log_by_time[0]['_id'])})
