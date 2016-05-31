@@ -11,4 +11,8 @@ function popupEmail(to_email, from_name, class_name, class_period){
   console.log(email_str);
   var winning = window.open(email_str,"","width=500,height=500");
 }
+function showHideDiv(divName){
+  if (document.getElementById(divName) == "none"){document.getElementById(divName) = "block";}
+  else{document.getElementById(divName) = "none";}
+}
 //function popupEmailMultiple(to_emails, from_name, )
