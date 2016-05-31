@@ -4,14 +4,15 @@
 <center>
     {{class_one.teacher_name}} - {{class_one.class_name}} - Period {{class_one.class_period}}
     <br><br><br>
-      Students<br>
+      
+    <!-- STUDENT SHOW -->
+    {% if auth == "student" %}
+    	Students<br>
       {% for student in students %}
         <a onclick="popupEmail('{{student.student_email}}', '{{username}}', '{{class_one.class_name}}', '{{class_one.class_period}}')">{{student.student_name}}</a>
         <br>
       {% endfor %}
       <br><br>
-    <!-- STUDENT SHOW -->
-    {% if auth == "student" %}
       Write the teacher: <a onclick="popupEmail('{{class_one.teacher_email}}', '{{username}}', '{{class_one.class_name}}', '{{class_one.class_period}}')">{{class_one.teacher_email}}</a><br>
       <form method="post">
         <input type="submit" name="button" id="button" value="Enroll in Class">
@@ -20,7 +21,24 @@
     {% endif %}
     <!-- TEACHER SHOW -->
     {% if auth == "teacher" %}
-      <br>
+      Students<br>
+      {% for student in students %}
+      	<p onclick="showHideDiv('{{student.student_email}}')">{{student.student_name}}</p>
+      	<div id="{{student.student_email}}" style="display:none;">
+      		<br>Preferred name: {{student.preferred_name}}
+        	<br>Student email: <a onclick="popupEmail('{{student.student_email}}', '{{username}}', '{{class_one.class_name}}', '{{class_one.class_period}}')">{{student.student_name}}</a>
+        	<br>Student phone: {{student.student_phone}}
+        	<br>Address: {{student.address}}
+        	<br>Parent name: {{student.parent_name}}
+        	<br>Parent phone: {{student.parent_phone}}
+        	<br>Parent email: {{student.parent_email}}
+        	<br>Counselor name: {{student.counselor_name}}
+        	<br>Counselor phone: {{student.counselor_phone}}
+        	<br>Counselor email: {{student.counselor_email}}
+        	<!-- Needs form for teacher to modify these values. Once teacher modifies, lock student from it? -->	
+        </div>
+        <br>
+      {% endfor %}
       <form method="post">
         <input type="submit" name="button" id="button" value="Email Multiple Students">
         <br>
