@@ -141,8 +141,9 @@ def log(student_name = "", time = ""):
             else:
                 return render_template("log.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), logs = database.find_log(session.get('username')))
         else:
-            database.delete_log(session.get('username'),student_name,time)
-            return render_template("log.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), logs = database.find_log(session.get('username')))
+            return render_template("logInfo.html")
+            #database.delete_log(session.get('username'),student_name,time)
+            #return render_template("log.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), logs = database.find_log(session.get('username')))
 
 
 if __name__ == "__main__":
