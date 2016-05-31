@@ -78,12 +78,17 @@ def sendMail(class_id):
         return render_template("sendMail.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), class_one = c1, students = database.all_students_in_class(class_id))
     if request.method == "POST":
         button = request.form['button']
+        checkbox = request.form['checkbox']
         #database.log_mail (FUNCTION THAT CLIENT ASKED FOR)
         if button == "Go to Email Page":
             to = request.form.getlist("checks")
             body = request.form.get("body_name")
             subject = request.form.get("subject_name")
-            gmail_link = utils.make_link(body, to, subject)
+            template = ""
+            teacher_name = session.get('username')
+            if checkbox == "late_email":
+                template = "late_email"
+            gmail_link = utils.make_link(body, to, subject, template,teacher_name)
             for student in request.form.getlist("checks"):
                 database.add_log(session.get('username'),student)  
             return redirect(gmail_link)
