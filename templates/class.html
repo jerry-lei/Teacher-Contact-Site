@@ -25,16 +25,18 @@
       {% for student in students %}
       	<p onclick="showHideDiv('{{student.student_email}}')">{{student.student_name}}</p>
       	<div id="{{student.student_email}}" style="display:none;">
-      		<br>Preferred name: {{student.preferred_name}}
-        	<br>Student email: <a onclick="popupEmail('{{student.student_email}}', '{{username}}', '{{class_one.class_name}}', '{{class_one.class_period}}')">{{student.student_name}}</a>
-        	<br>Student phone: {{student.student_phone}}
-        	<br>Address: {{student.address}}
-        	<br>Parent name: {{student.parent_name}}
-        	<br>Parent phone: {{student.parent_phone}}
-        	<br>Parent email: {{student.parent_email}}
-        	<br>Counselor name: {{student.counselor_name}}
-        	<br>Counselor phone: {{student.counselor_phone}}
-        	<br>Counselor email: {{student.counselor_email}}
+	  <table class="studentTable" border="1px">
+      		<tr><td>Preferred name</td><td> {{student.preferred_name}}</td></tr>
+        	<tr><td>Student email</td><td> <a onclick="popupEmail('{{student.student_email}}', '{{username}}', '{{class_one.class_name}}', '{{class_one.class_period}}')">{{student.student_email}}</td></tr>
+        	<tr><td>Student phone</td><td> {{student.student_phone}}</td></tr>
+        	<tr><td>Address</td><td> {{student.address}}</td></tr>
+        	<tr><td>Parent name</td><td> {{student.parent_name}}</td></tr>
+        	<tr><td>Parent phone</td><td> {{student.parent_phone}}</td></tr>
+        	<tr><td>Parent email</td><td> {{student.parent_email}}</td></tr>
+        	<tr><td>Counselor name</td><td> {{student.counselor_name}}</td></tr>
+        	<tr><td>Counselor phone</td><td> {{student.counselor_phone}}</td></tr>
+        	<tr><td>Counselor email</td><td> {{student.counselor_email}}</td></tr>
+	  </table>
         	<!-- Needs form for teacher to modify these values. Once teacher modifies, lock student from it? -->	
         </div>
         <br>
