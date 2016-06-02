@@ -28,6 +28,7 @@ def make_link(body,to,subject,template,teacher_name):
     #return bcc + '\n' + to_str
     if template == "late_email":
         return "https://mail.google.com/mail/u/0/?view=cm&fs=1&to=" + to_str + "&su=" + "Frequent lateness" + "&body=" + late_email + "\n" + teacher_name + "&bcc=" + bcc + "&tf=1"
-    return "https://mail.google.com/mail/u/0/?view=cm&fs=1&to=" + to_str + "&su=" + subject + "&body=" + body + "&bcc=" + bcc + "&tf=1"
+    else:
+        return "https://mail.google.com/mail/u/0/?view=cm&fs=1&to=" + to_str + "&su=" + subject + "&body=" + body + "&bcc=" + bcc + "&tf=1"
 
 #print make_link("The quick brown fox jumps over the lazy dog \n ahasdf asss",["jlei2@stuy.edu","rzheng2@stuy.edu","michael@gmail.com","amazon@gmail.com"])

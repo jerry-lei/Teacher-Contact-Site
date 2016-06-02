@@ -88,6 +88,8 @@ def sendMail(class_id):
             teacher_name = session.get('username')
             if checkbox == "late_email":
                 template = "late_email"
+            if checkbox == "":
+                template == ''
             gmail_link = utils.make_link(body, to, subject, template,teacher_name)
             for student in request.form.getlist("checks"):
                 database.add_log(session.get('username'),student)  
@@ -141,9 +143,13 @@ def log(student_name = "", time = ""):
             else:
                 return render_template("log.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), logs = database.find_log(session.get('username')))
         else:
-            return render_template("logInfo.html")
+            return render_template("logInfo.html",student_name=student_name,time=time)
             #database.delete_log(session.get('username'),student_name,time)
             #return render_template("log.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), logs = database.find_log(session.get('username')))
+
+@app.route("/logInfo")
+def logInfo():
+    return "test"
 
 
 if __name__ == "__main__":
