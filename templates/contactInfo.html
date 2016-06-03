@@ -5,7 +5,7 @@
   <form method="post">
     <p>Preferred Name:</p>
     <input type="text" name="sname" value="{{student.preferred_name}}">
-    <br>    
+    <br>
     <p>Student Phone Number:</p>
     <input type="text" name="sphone" value="{{student.student_phone}}">
     <br>
@@ -18,14 +18,14 @@
     <input type="text" name="pphone" value="{{student.parent_phone}}">
     <br>
     <p>Parent Email:</p>
-    <input type="text" name="pemail" value="{{student.parent_email}}">
+    <input type="email" name="pemail" value="{{student.parent_email}}">
     <p>Guidance Counselor Name:</p>
     <input type="text" name="gname" value="{{student.counselor_name}}">
     <p>Guidance Counselor Phone Number:</p>
     <input type="text" name="gphone" value="{{student.counselor_phone}}">
     <br>
     <p>Guidance Counselor Email:</p>
-    <input type="text" name="gemail" value="{{student.counselor_email}}">
+    <input type="email" name="gemail" value="{{student.counselor_email}}">
     <br><br>
     <button type="submit">Submit</button>
   </form>

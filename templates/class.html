@@ -32,10 +32,10 @@
       <tr><td>Address</td><td> {{student.address}}</td></tr>
       <tr><td>Parent name</td><td> {{student.parent_name}}</td></tr>
       <tr><td>Parent phone</td><td> {{student.parent_phone}}</td></tr>
-      <tr><td>Parent email</td><td> <a onclick="popupEmail('{{student.student_email}}', '{{username}}', '{{class_one.class_name}}', '{{class_one.class_period}}')">{{student.parent_email}}</td></tr>
+      <tr><td>Parent email</td><td> <a onclick="popupEmail('{{student.parent_email}}', '{{username}}', '{{class_one.class_name}}', '{{class_one.class_period}}')">{{student.parent_email}}</td></tr>
       <tr><td>Counselor name</td><td> {{student.counselor_name}}</td></tr>
       <tr><td>Counselor phone</td><td> {{student.counselor_phone}}</td></tr>
-      <tr><td>Counselor email</td><td> <a onclick="popupEmail('{{student.student_email}}', '{{username}}', '{{class_one.class_name}}', '{{class_one.class_period}}')">{{student.counselor_email}}</td></tr></td></tr>
+      <tr><td>Counselor email</td><td> <a onclick="popupEmail('{{student.counselor_email}}', '{{username}}', '{{class_one.class_name}}', '{{class_one.class_period}}')">{{student.counselor_email}}</td></tr></td></tr>
 </table>
 <a href="/contactInfo/{{student.student_email}}">Edit Contact Info</a><br>
 <a onclick="showPastEmails('{{student.student_email}}')">See Past Emails</a>
