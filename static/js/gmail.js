@@ -49,6 +49,9 @@ function handleAuthResult(authResult) {
 			console.log('Error: ' + reason.result.error.message);
 		});
 	    });
+    }else{
+	$.getJSON("/logout", {
+	});
     }
 }
 
