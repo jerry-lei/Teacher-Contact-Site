@@ -4,7 +4,7 @@
 <center>
     {{class_one.teacher_name}} - {{class_one.class_name}} - Period {{class_one.class_period}}
     <br><br><br>
-      
+
     <!-- STUDENT SHOW -->
     {% if auth == "student" %}
     	Students<br>
@@ -32,12 +32,12 @@
         	<tr><td>Address</td><td> {{student.address}}</td></tr>
         	<tr><td>Parent name</td><td> {{student.parent_name}}</td></tr>
         	<tr><td>Parent phone</td><td> {{student.parent_phone}}</td></tr>
-        	<tr><td>Parent email</td><td> {{student.parent_email}}</td></tr>
+        	<tr><td>Parent email</td><td> <a onclick="popupEmail('{{student.student_email}}', '{{username}}', '{{class_one.class_name}}', '{{class_one.class_period}}')">{{student.parent_email}}</td></tr>
         	<tr><td>Counselor name</td><td> {{student.counselor_name}}</td></tr>
         	<tr><td>Counselor phone</td><td> {{student.counselor_phone}}</td></tr>
-        	<tr><td>Counselor email</td><td> {{student.counselor_email}}</td></tr>
+        	<tr><td>Counselor email</td><td> <a onclick="popupEmail('{{student.student_email}}', '{{username}}', '{{class_one.class_name}}', '{{class_one.class_period}}')">{{student.counselor_email}}</td></tr></td></tr>
 	  </table>
-        	<!-- Needs form for teacher to modify these values. Once teacher modifies, lock student from it? -->	
+        	<!-- Needs form for teacher to modify these values. Once teacher modifies, lock student from it? -->
         </div>
         <br>
       {% endfor %}
