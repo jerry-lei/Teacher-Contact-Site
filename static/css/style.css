@@ -1,9 +1,9 @@
 <style type="text/css">
 .studentTable{
-    width:100%; 
+    width:100%;
     border:1px solid #000;
     }
-.studentTable td{ 
+.studentTable td{
     padding:2px;
     border:none;
     }
@@ -11,11 +11,10 @@
     background: #b8d1f3;
     border:none;
     }
-.studentTable tr:nth-child(odd){ 
+.studentTable tr:nth-child(odd){
     background: #b8d1f3;
     }
 .studentTable tr:nth-child(even){
     background: #dae5f4;
     }
 </style>
-

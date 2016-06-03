@@ -2,12 +2,11 @@
 
 {% block body %}
 <center>
-  {{class_one.teacher_name}} - {{class_one.class_name}} - Period {{class_one.class_period}}
-  <br><br><br>
+  <h2>{{class_one.teacher_name}} - {{class_one.class_name}} - Period {{class_one.class_period}}</h2>
 
   <!-- STUDENT SHOW -->
   {% if auth == "student" %}
-  Students<br>
+  <h3>Students</h3>
   {% for student in students %}
   <a onclick="popupEmail('{{student.student_email}}', '{{username}}', '{{class_one.class_name}}', '{{class_one.class_period}}')">{{student.student_name}}</a>
   <br>
@@ -21,7 +20,7 @@
   {% endif %}
   <!-- TEACHER SHOW -->
   {% if auth == "teacher" %}
-  Students<br>
+  <h3>Students</h3>
   {% for student in students %}
   <p onclick="showHideDiv('{{student.student_email}}')">{{student.student_name}}</p>
   <div id="{{student.student_email}}" style="display:none;">
@@ -44,18 +43,18 @@
 <br>
 {% endfor %}
 <form method="post">
-  <input type="submit" name="button" id="button" value="Email Multiple Students">
+  <input type="submit" name="button" class="btn btn-default" style="width:33%;" id="button" value="Email Multiple Students">
   <br>
   <div id="hideOriginal" style="display:block;">
     <br>
-    <input type="button" value="Delete This Class" onclick="showConfirm()">
+    <input type="button" value="Delete This Class"class="btn btn-default" style="width:33%;" onclick="showConfirm()">
   </div>
   <br><br><br>
   <div id="confirmDelete" style="display:none;">
-    <input type="submit" name="button" id="button" value="Confirm Delete">
+    <input type="submit" name="button" id="button" class="btn btn-default" style="width:33%;" value="Confirm Delete">
     <br>
     <br>
-    <input type="button" value="Cancel" onclick="returnOriginal()">
+    <input type="button" value="Cancel" class="btn btn-default" style="width:33%;" onclick="returnOriginal()">
   </div>
 </form>
 {% endif %}
