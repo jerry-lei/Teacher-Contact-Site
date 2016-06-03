@@ -30,17 +30,13 @@ def logout():
     session.clear()
     return redirect("/")
 
-@app.route("/student/<student_id>")
-def student_show():
-    pass
-
 @app.route("/myClasses")
 def myClasses():
     if session.get('auth') != 'student':
         return redirect("/")
     else:
         return render_template("classes.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), classes = database.find_student_classes(session.get('email')))
-    
+
 @app.route("/classes")
 @app.route("/classes/<class_id>", methods=["GET", "POST"])
 def classes(class_id = ""):
@@ -106,13 +102,29 @@ def createClass():
         database.create_class(session.get('username'), session.get('email'), request.form.get('course_code'), request.form.get('course_name'), request.form.get('course_period'))
         return redirect("/")
 
+def student(student_id = ""):
+    if session.get('auth') != 'teacher':
+        return redirect("/")
+    elif database.check_contact_info(student_id) == None:
+        return redirect("/")
+    return render_template("contactInfo.html", client_id = client_id, username = session.get('username'), auth = session.get('auth'), email = session.get('email'), student = database.check_contact_info(student_id))
+    
 @app.route("/contactInfo", methods=["GET", "POST"])
-def contactInfo():
+@app.route("/contactInfo/<student_id>", methods=["GET", "POST"])
+def contactInfo(student_id=""):
     if request.method == "GET":
-        if session.get('auth') != 'student':
-            return redirect("/")
+        if session.get('auth') == 'student':
+            if len(student_id) > 0:
+                return redirect("/contactInfo")
+            else:
+                return render_template("contactInfo.html", client_id = client_id, username = session.get('username'), auth = session.get('auth'), email = session.get('email'), student = database.check_contact_info(session.get('email')))
+        elif session.get('auth') == 'teacher':
+            if database.check_contact_info(student_id) == None:
+                return redirect("/")
+            else:
+                return render_template("contactInfo.html", client_id = client_id, username = session.get('username'), auth = session.get('auth'), email = session.get('email'), student = database.check_contact_info(student_id))
         else:
-            return render_template("contactInfo.html",client_id = client_id, username = session.get('username'), auth = session.get('auth'), email = session.get('email'), student = database.check_contact_info(session.get('email')))
+            return redirect("/")
     else:
         database.add_contact_info(session.get('email'), request.form.get('sname'), request.form.get('sphone'), request.form.get('address'), request.form.get('pname'), request.form.get('pphone'), request.form.get('pemail'), request.form.get('gname'), request.form.get('gphone'), request.form.get('gemail'))
         return redirect("/")

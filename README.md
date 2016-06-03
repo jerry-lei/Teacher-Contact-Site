@@ -22,7 +22,7 @@ This Teacher Contact Site is a final project for a software development class. I
 - [x] &nbsp; Class profile
 - [x] &nbsp; Student profile
 - [x] &nbsp; Teachers see students info
-- [ ] &nbsp; Teacher access to contactInfo.html
+- [x] &nbsp; Teacher access to contactInfo.html
 - [x] &nbsp; Send single email
 - [x] &nbsp; Send mass emails (link to create email: https://mail.google.com/mail/?view=cm&fs=1&to=someone@example.com&su=SUBJECT&body=BODY&bcc=someone.else@example.com , www.w3schools.com/tags/ref_urlencode.asp)
 - [x] &nbsp; Logs of letters/what kinds of letters/notes to a log
