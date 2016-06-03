@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, request, redirect
+from flask import Flask, render_template, session, request, redirect, jsonify
 import database
 import utils
 import json
@@ -15,7 +15,7 @@ def index():
 
 @app.route('/addUser')
 def addUser():
-    if len(request.args.keys()) != 0:
+    if request.is_xhr:
         session['username'] = request.args.get('username', 0, type=str)
         session['email'] = request.args.get('email', 0, type=str)
         session['auth'] = request.args.get('auth', 0, type=str)
@@ -23,6 +23,7 @@ def addUser():
             database.create_teacher(session.get('username'), session.get('email'))
         else:
             database.create_student(session.get('username'), session.get('email'))
+        return jsonify()
     return redirect("/")
 
 @app.route("/logout")
@@ -162,7 +163,6 @@ def log(student_name = "", time = ""):
 @app.route("/logInfo")
 def logInfo():
     return "test"
-
 
 if __name__ == "__main__":
     app.debug = True

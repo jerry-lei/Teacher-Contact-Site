@@ -38,12 +38,11 @@ function handleAuthResult(authResult) {
 			    'username': resp.result.displayName,
 			    'email': resp.result.emails[0].value,
 			    'auth': auth,
-			    success: function(data){
-				//Should reload. Doesn't work right."
-				//setTimeout(window.location.reload(true), 1);
-				//window.location.reload(true);
-			    }
-			})
+			}, function(data){
+			    console.log(data);
+			    window.location.reload(true)
+//			    $('body').html(data);
+			});
 		    }else{
 			signOut();
 		    }
@@ -53,8 +52,7 @@ function handleAuthResult(authResult) {
 	    });
     }
 }
-					
-						
+
 /**
  * Initiate auth flow in response to user clicking authorize button.
  *
