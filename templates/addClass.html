@@ -16,18 +16,21 @@
     <option value="p10">Period 10</option>
   </select>-->
   <form method="post">
-    <input type="checkbox" name="checks" value="p1">Period 1<br>
-    <input type="checkbox" name="checks" value="p2">Period 2<br>
-    <input type="checkbox" name="checks" value="p3">Period 3<br>
-    <input type="checkbox" name="checks" value="p4">Period 4<br>
-    <input type="checkbox" name="checks" value="p5">Period 5<br>
-    <input type="checkbox" name="checks" value="p6">Period 6<br>
-    <input type="checkbox" name="checks" value="p7">Period 7<br>
-    <input type="checkbox" name="checks" value="p8">Period 8<br>
-    <input type="checkbox" name="checks" value="p9">Period 9<br>
-    <input type="checkbox" name="checks" value="p10">Period 10<br>
+    <div class="btn-group-vertical" data-toggle="buttons" style="width:25%;">
+    <label class="btn btn-success btn-block"><input type="checkbox" name="checks" value="p1">Period 1<br></label>
+    <label class="btn btn-success btn-block"><input type="checkbox" name="checks" value="p2">Period 2<br></label>
+    <label class="btn btn-success btn-block"><input type="checkbox" name="checks" value="p3">Period 3<br></label>
+    <label class="btn btn-success btn-block"><input type="checkbox" name="checks" value="p4">Period 4<br></label>
+    <label class="btn btn-success btn-block"><input type="checkbox" name="checks" value="p5">Period 5<br></label>
+    <label class="btn btn-success btn-block"><input type="checkbox" name="checks" value="p6">Period 6<br></label>
+    <label class="btn btn-success btn-block"><input type="checkbox" name="checks" value="p7">Period 7<br></label>
+    <label class="btn btn-success btn-block"><input type="checkbox" name="checks" value="p8">Period 8<br></label>
+    <label class="btn btn-success btn-block"><input type="checkbox" name="checks" value="p9">Period 9<br></label>
+    <label class="btn btn-success btn-block"><input type="checkbox" name="checks" value="p10">Period 10<br></label>
+  </div><br><br>
   <input type="submit" id="button" name="button" class="btn btn-default" style="width:33%;" value = "Look">
 </form>
+  <br>
   {% for item in classes %}
   <a href="/classes/{{item._id}}">{{item.teacher_name}} - {{item.class_name}} - Period {{item.class_period}}</a>
   <br><br>

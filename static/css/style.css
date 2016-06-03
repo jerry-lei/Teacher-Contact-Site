@@ -17,4 +17,7 @@
 .studentTable tr:nth-child(even){
     background: #dae5f4;
     }
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: #000000;
+    }
 </style>

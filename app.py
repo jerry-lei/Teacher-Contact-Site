@@ -89,7 +89,7 @@ def sendMail(class_id):
                 template == ''
             gmail_link = utils.make_link(body, to, subject, template,teacher_name)
             for student in request.form.getlist("checks"):
-                database.add_log(session.get('username'),student)  
+                database.add_log(session.get('username'),student)
             return redirect(gmail_link)
 
 @app.route("/createClass", methods=["GET", "POST"])
@@ -109,7 +109,7 @@ def student(student_id = ""):
     elif database.check_contact_info(student_id) == None:
         return redirect("/")
     return render_template("contactInfo.html", client_id = client_id, username = session.get('username'), auth = session.get('auth'), email = session.get('email'), student = database.check_contact_info(student_id))
-    
+
 @app.route("/contactInfo", methods=["GET", "POST"])
 @app.route("/contactInfo/<student_id>", methods=["GET", "POST"])
 def contactInfo(student_id=""):

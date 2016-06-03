@@ -24,7 +24,8 @@
   {% for student in students %}
   <p onclick="showHideDiv('{{student.student_email}}')">{{student.student_name}}</p>
   <div id="{{student.student_email}}" style="display:none;">
-    <table class="studentTable" border="1px">
+    <div class="table-responsive">
+    <table class="table table-hover" style="width:50%">
       <tr><td>Preferred name</td><td> {{student.preferred_name}}</td></tr>
       <tr><td>Student email</td><td> <a onclick="popupEmail('{{student.student_email}}', '{{username}}', '{{class_one.class_name}}', '{{class_one.class_period}}')">{{student.student_email}}</td></tr>
       <tr><td>Student phone</td><td> {{student.student_phone}}</td></tr>
@@ -35,7 +36,8 @@
       <tr><td>Counselor name</td><td> {{student.counselor_name}}</td></tr>
       <tr><td>Counselor phone</td><td> {{student.counselor_phone}}</td></tr>
       <tr><td>Counselor email</td><td> <a onclick="popupEmail('{{student.counselor_email}}', '{{username}}', '{{class_one.class_name}}', '{{class_one.class_period}}')">{{student.counselor_email}}</td></tr></td></tr>
-</table>
+    </table>
+  </div>
 <a href="/contactInfo/{{student.student_email}}">Edit Contact Info</a><br>
 <a onclick="showPastEmails('{{student.student_email}}')">See Past Emails</a>
 <!-- Needs form for teacher to modify these values. Once teacher modifies, lock student from it? -->
