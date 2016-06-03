@@ -3,9 +3,9 @@
 {% block body %}
 <center>
   <form method="post">
-
+  <div class="btn-group-vertical" data-toggle="buttons" style="width:25%;">
     {% for student in students %}
-    <input type="checkbox" name="checks" value="{{student.student_email}}"> {{student.student_name}}<br>
+    <label class="btn btn-success btn-block"><input type="checkbox" name="checks" value="{{student.student_email}}"> {{student.student_name}}<br></label>
     {% endfor %}
     <p>Subject:</p>
     <input type="text" name="subject_name">
