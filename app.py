@@ -28,7 +28,9 @@ def addUser():
 
 @app.route("/logout")
 def logout():
-    session.clear()
+    if request.is_xhr:
+        session.clear()
+        return jsonify()
     return redirect("/")
 
 @app.route("/myClasses")

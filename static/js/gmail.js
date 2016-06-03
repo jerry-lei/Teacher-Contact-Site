@@ -39,12 +39,11 @@ function handleAuthResult(authResult) {
 			    'email': resp.result.emails[0].value,
 			    'auth': auth,
 			}, function(data){
-			    console.log(data);
 			    window.location.reload(true)
-//			    $('body').html(data);
 			});
 		    }else{
-			signOut();
+			document.getElementsByClassName("col-lg-12 text-center")[0].innerHTML="You need to sign in with a stuy.edu email. You can press the logout button to log out of your current gmail.";
+			document.getElementsByClassName("col-lg-12 text-center")[0].style.color="red";
 		    }
 		}, function(reason) {
 			console.log('Error: ' + reason.result.error.message);
@@ -73,15 +72,17 @@ function signOut(){
     var winning = window.open("","","width=500,height=500");
     winning.location = "https://accounts.google.com/logout";
     setInterval(function(){
-      try{
+	try{
         winning.location.href;
-      }
-      catch(err){
-        winning.close();
-        window.location = "/logout";
-      }
+	}catch(err){
+            winning.close();
+	    $.getJSON("/logout", {
+	    }, function(data){
+		window.location.reload(true)
+	    });
+	}
     }, 100);
-}
+};
 
 document.getElementById('teacher').addEventListener("click", handleAuthClick);
 document.getElementById('student').addEventListener("click", handleAuthClick);
