@@ -2,32 +2,94 @@
 
 {% block body %}
 <center>
+  <!--
+  Most common form control, text-based input fields. Includes support for all HTML5 types: text, password, datetime, datetime-local, date, month, time, week, number, email, url, search, tel, and color.
+  -->
   <form method="post">
-    <p>Preferred Name:</p>
-    <input type="text" name="sname" value="{{student.preferred_name}}">
+    <div class="form-group form-group-sm">
+      <label class="col-sm-2 control-label" for="formGroupInputSmall">
+        Preferred Name
+      </label>
+      <div class="col-sm-10">
+        <input class="form-control" type="text"  name="sname" value="{{student.preferred_name}}" placeholder="ex. John">
+      </div>
+    </div>
     <br>
-    <p>Student Phone Number:</p>
-    <input type="text" name="sphone" value="{{student.student_phone}}">
+    <div class="form-group form-group-sm">
+      <label class="col-sm-2 control-label" for="formGroupInputSmall">
+        Student Phone Number
+      </label>
+      <div class="col-sm-10">
+        <input class="form-control" type="tel"  name="sphone" value="{{student.student_phone}}" placeholder="ex. (212) 312-4800">
+      </div>
+    </div>
     <br>
+    <div class="form-group form-group-sm">
+      <label class="col-sm-2 control-label" for="formGroupInputSmall">
+        Student Address
+      </label>
+      <div class="col-sm-10">
+        <textarea class="form-control" type="text"  name="address" value="{{student.address}}" placeholder="ex. 345 Chambers St, New York, NY 10282">
+      </div>
+    </div>
+    <!--
     <p>Student Address:</p>
     <input type="text" name="address" value="{{student.address}}">
+    <br>-->
     <br>
-    <p>Parent Name:</p>
-    <input type="text" name="pname" value="{{student.parent_name}}">
-    <p>Parent Phone Number:</p>
-    <input type="text" name="pphone" value="{{student.parent_phone}}">
+    <div class="form-group form-group-sm">
+      <label class="col-sm-2 control-label" for="formGroupInputSmall">
+        Parent Name
+      </label>
+      <div class="col-sm-10">
+        <textarea class="form-control" type="text"  name="pname" value="{{student.parent_name}}" placeholder="ex. Jane Doe">
+      </div>
+    </div>
     <br>
-    <p>Parent Email:</p>
-    <input type="email" name="pemail" value="{{student.parent_email}}">
-    <p>Guidance Counselor Name:</p>
-    <input type="text" name="gname" value="{{student.counselor_name}}">
-    <p>Guidance Counselor Phone Number:</p>
-    <input type="text" name="gphone" value="{{student.counselor_phone}}">
+    <div class="form-group form-group-sm">
+      <label class="col-sm-2 control-label" for="formGroupInputSmall">
+        Parent Phone Number
+      </label>
+      <div class="col-sm-10">
+        <input class="form-control" type="tel"  name="pphone" value="{{student.parent_phone}}" placeholder="ex. (212) 312-4800">
+      </div>
+    </div>
     <br>
-    <p>Guidance Counselor Email:</p>
-    <input type="email" name="gemail" value="{{student.counselor_email}}">
-    <br><br>
-    <button type="submit" class="btn btn-default" style="width:33%;">Submit</button>
+    <div class="form-group form-group-sm">
+      <label class="col-sm-2 control-label" for="formGroupInputSmall">
+        Parent Email
+      </label>
+      <div class="col-sm-10">
+        <input class="form-control" type="email"  name="pemail" value="{{student.parent_email}}" placeholder="ex. johndoe@gmail.com">
+      </div>
+    </div>
+    <br>
+    <div class="form-group form-group-sm">
+      <label class="col-sm-2 control-label" for="formGroupInputSmall">
+        Counselor Name
+      </label>
+      <div class="col-sm-10">
+        <textarea class="form-control" type="text"  name="gname" value="{{student.counselor_name}}" placeholder="ex. Jane Doe">
+      </div>
+    </div>
+    <br>
+    <div class="form-group form-group-sm">
+      <label class="col-sm-2 control-label" for="formGroupInputSmall">
+        Parent Phone Number
+      </label>
+      <div class="col-sm-10">
+        <input class="form-control" type="tel"  name="gphone" value="{{student.counselor_phone}}" placeholder="ex. (212) 312-4800">
+      </div>
+    </div>
+    <br>
+    <div class="form-group form-group-sm">
+      <label class="col-sm-2 control-label" for="formGroupInputSmall">
+        Parent Email
+      </label>
+      <div class="col-sm-10">
+        <input class="form-control" type="email"  name="gemail" value="{{student.counselor_email}}" placeholder="ex. johndoe@gmail.com">
+      </div>
+    </div>
   </form>
 </center>
 
