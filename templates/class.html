@@ -43,18 +43,18 @@
 <br>
 {% endfor %}
 <form method="post">
-  <input type="submit" name="button" id="button" value="Email Multiple Students">
+  <input type="submit" name="button" class="btn btn-default" style="width:33%;" id="button" value="Email Multiple Students">
   <br>
   <div id="hideOriginal" style="display:block;">
     <br>
-    <input type="button" value="Delete This Class" onclick="showConfirm()">
+    <input type="button" value="Delete This Class"class="btn btn-default" style="width:33%;" onclick="showConfirm()">
   </div>
   <br><br><br>
   <div id="confirmDelete" style="display:none;">
-    <input type="submit" name="button" id="button" value="Confirm Delete">
+    <input type="submit" name="button" id="button" class="btn btn-default" style="width:33%;" value="Confirm Delete">
     <br>
     <br>
-    <input type="button" value="Cancel" onclick="returnOriginal()">
+    <input type="button" value="Cancel" class="btn btn-default" style="width:33%;" onclick="returnOriginal()">
   </div>
 </form>
 {% endif %}

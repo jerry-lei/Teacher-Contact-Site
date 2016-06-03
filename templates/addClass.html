@@ -26,7 +26,7 @@
     <input type="checkbox" name="checks" value="p8">Period 8<br>
     <input type="checkbox" name="checks" value="p9">Period 9<br>
     <input type="checkbox" name="checks" value="p10">Period 10<br>
-  <input type="submit" id="button" name="button" value = "Look">
+  <input type="submit" id="button" name="button" class="btn btn-default" style="width:33%;" value = "Look">
 </form>
   {% for item in classes %}
   <a href="/classes/{{item._id}}">{{item.teacher_name}} - {{item.class_name}} - Period {{item.class_period}}</a>
