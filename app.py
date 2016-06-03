@@ -76,6 +76,7 @@ def sendMail(class_id):
     if request.method == "GET":
         return render_template("sendMail.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), class_one = c1, students = database.all_students_in_class(class_id))
     if request.method == "POST":
+        print "ASDFASDF"
         button = request.form['button']
         checkbox = request.form['checkbox']
         #database.log_mail (FUNCTION THAT CLIENT ASKED FOR)
