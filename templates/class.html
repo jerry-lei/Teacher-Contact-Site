@@ -37,7 +37,8 @@
       <tr><td>Counselor phone</td><td> {{student.counselor_phone}}</td></tr>
       <tr><td>Counselor email</td><td> <a onclick="popupEmail('{{student.student_email}}', '{{username}}', '{{class_one.class_name}}', '{{class_one.class_period}}')">{{student.counselor_email}}</td></tr></td></tr>
 </table>
-<a href="/contactInfo/{{student.student_email}}">Edit Contact Info</a>
+<a href="/contactInfo/{{student.student_email}}">Edit Contact Info</a><br>
+<a onclick="showPastEmails('{{student.student_email}}')">See Past Emails</a>
 <!-- Needs form for teacher to modify these values. Once teacher modifies, lock student from it? -->
 </div>
 <br>

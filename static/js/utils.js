@@ -15,4 +15,9 @@ function showHideDiv(divName){
   if (document.getElementById(divName).style.display === "none"){document.getElementById(divName).style.display = "block";}
   else{document.getElementById(divName).style.display = "none";}
 }
+function showPastEmails(to_email){
+  var email_str = "https://mail.google.com/mail/u/0/#search/to:" + to_email
+  var winning = window.open(email_str,"","width=500,height=500");
+
+}
 //function popupEmailMultiple(to_emails, from_name, )
