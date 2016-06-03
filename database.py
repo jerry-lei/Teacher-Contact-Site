@@ -150,3 +150,10 @@ def delete_log(teacher_name,student_name,time):
     if item['time'] == time:
       log_by_time.append(item)
   return logs.remove({'_id': ObjectId(log_by_time[0]['_id'])})
+
+def add_to_log(teacher_name,student_name,time,notes):
+    logs = db['logs']
+    logs.find_one_and_update({'_id' : ObjectId(time)},
+                             {'$addToSet': {'notes': notes}})
+
+

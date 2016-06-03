@@ -148,23 +148,23 @@ def addClasses():
             return render_template("addClass.html",client_id = client_id, username = session.get('username'), auth = session.get('auth'), email = session.get('email'))#,database.all_classes_in_period())
     return redirect("/")
 
-@app.route("/log", methods=["GET","POST"])
-@app.route("/log/<student_name>/<time>", methods=["GET","POST"])
-def log(student_name = "", time = ""):
-    if request.method == "GET":
-        if time == "":
-            if session.get('auth') != 'teacher':
-                return redirect("/")
-            else:
-                return render_template("log.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), logs = database.find_log(session.get('username')))
-        else:
-            return render_template("logInfo.html",student_name=student_name,time=time)
+@app.route("/log", methods=["GET"])
+def log():    
+    if session.get('auth') != 'teacher':
+        return redirect("/")
+    else:
+        return render_template("log.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), logs = database.find_log(session.get('username')))
+
             #database.delete_log(session.get('username'),student_name,time)
             #return render_template("log.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), logs = database.find_log(session.get('username')))
 
-@app.route("/logInfo")
-def logInfo():
-    return "test"
+@app.route("/logInfo/<student_name>/<time>", methods=["GET","POST"])
+def logInfo(student_name = "", time = ""):
+    if request.method == "GET":
+        return render_template("logInfo.html",student_name=student_name,time=time)
+    else:
+        button = request.form['button']
+        return "testy"
 
 if __name__ == "__main__":
     app.debug = True
