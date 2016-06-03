@@ -18,6 +18,16 @@ function showHideDiv(divName){
 function showPastEmails(to_email){
   var email_str = "https://mail.google.com/mail/u/0/#search/to:" + to_email
   var winning = window.open(email_str,"","width=500,height=500");
-
 }
-//function popupEmailMultiple(to_emails, from_name, )
+function popupEmailMultiple(){
+  var form = document.getElementById("name_checks");
+  var to_str;
+  for (var c1 = 0; c1 < form.elements['checks'].length; c1++) {
+    to_str += (form.elements['letters'][c1].value) + ',';
+  }
+  var body = document.getElementByName("body_name");
+  var subject = document.getElementByName("subject_name")
+  var email_str = "https://mail.google.com/mail/u/0/?view=cm&fs=1&bcc=" + to_str + "&su=" + subject + "&body=" + body;
+  console.log(email_str);
+  var winning = window.open(email_str, "", "width=500,height=500");
+}
