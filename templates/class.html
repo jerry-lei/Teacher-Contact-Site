@@ -2,12 +2,11 @@
 
 {% block body %}
 <center>
-  {{class_one.teacher_name}} - {{class_one.class_name}} - Period {{class_one.class_period}}
-  <br><br><br>
+  <h2>{{class_one.teacher_name}} - {{class_one.class_name}} - Period {{class_one.class_period}}</h2>
 
   <!-- STUDENT SHOW -->
   {% if auth == "student" %}
-  Students<br>
+  <h3>Students</h3>
   {% for student in students %}
   <a onclick="popupEmail('{{student.student_email}}', '{{username}}', '{{class_one.class_name}}', '{{class_one.class_period}}')">{{student.student_name}}</a>
   <br>
@@ -21,7 +20,7 @@
   {% endif %}
   <!-- TEACHER SHOW -->
   {% if auth == "teacher" %}
-  Students<br>
+  <h3>Students</h3>
   {% for student in students %}
   <p onclick="showHideDiv('{{student.student_email}}')">{{student.student_name}}</p>
   <div id="{{student.student_email}}" style="display:none;">
