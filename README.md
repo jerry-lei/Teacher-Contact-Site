@@ -9,13 +9,11 @@ This Teacher Contact Site is a final project for a software development class. I
 
 ### Devlog:
 - [x] May 17, 2016: First meeting with client
-- [x] May 22, 2016: Oauth done
-- [x] May 22, 2016: Limited to only stuy.edu emails
 - [x] May 26, 2016: Second meeting with client
 
 ### Todo (Client requested):
-- [x] &nbsp; Login through Google API (stuy.edu only) 
-- [x] &nbsp; Logout 
+- [x] &nbsp; Login through Google API (stuy.edu only)
+- [x] &nbsp; Logout
 - [x] &nbsp; Import contact info of students
 - [x] &nbsp; Contact info overrides
 - [x] &nbsp; Allow students to import contact info of parents
@@ -26,6 +24,7 @@ This Teacher Contact Site is a final project for a software development class. I
 - [x] &nbsp; Send single email
 - [x] &nbsp; Send mass emails (link to create email: https://mail.google.com/mail/?view=cm&fs=1&to=someone@example.com&su=SUBJECT&body=BODY&bcc=someone.else@example.com , www.w3schools.com/tags/ref_urlencode.asp)
 - [x] &nbsp; Logs of letters/what kinds of letters/notes to a log
+- [x] &nbsp; Show emails sent to a student (through window)
 - [ ] &nbsp; Links to send previously generated letters (with ability to edit)
 - [ ] &nbsp; (Stretch) Print address on double sided paper
 - [ ] &nbsp; (Stretch) Voice call
