@@ -21,13 +21,16 @@ function showPastEmails(to_email){
 }
 function popupEmailMultiple(){
   var form = document.getElementById("name_checks");
-  var to_str;
+  var to_str = "";
   for (var c1 = 0; c1 < form.elements['checks'].length; c1++) {
-    to_str += (form.elements['letters'][c1].value) + ',';
+    if (form.elements['checks'][c1].checked == true){
+      to_str += (form.elements['checks'][c1].value) + ',';
+    }
   }
-  var body = document.getElementByName("body_name");
-  var subject = document.getElementByName("subject_name")
+  console.log(to_str);
+  var body = document.getElementById("body_name").value;
+  body = body.replace(/\r?\n/g, '%0A');
+  var subject = document.getElementById("subject_name").value;
   var email_str = "https://mail.google.com/mail/u/0/?view=cm&fs=1&bcc=" + to_str + "&su=" + subject + "&body=" + body;
-  console.log(email_str);
   var winning = window.open(email_str, "", "width=500,height=500");
 }
