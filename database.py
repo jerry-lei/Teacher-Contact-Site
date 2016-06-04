@@ -6,6 +6,12 @@ connection = MongoClient()
 db = connection['database']
 
 def create_student(student_name, student_email):
+    """
+    Creates a document in db['students']. Happens upon first login.
+    Parameters:
+        String student_name
+        String student_email
+    """
     students = db['students']
     if students.find_one({'student_email': student_email}) == None:
         new_student = {'student_name': student_name,
@@ -21,12 +27,25 @@ def create_student(student_name, student_email):
                        'counselor_email': ''}
         students.insert_one(new_student)
 
-def check_contact_info(student_email):
+def find_student(student_email):
+    """
+    Query with student_email.
+    Parameters:
+        String student_email
+    Returns:
+        cursor
+    """
     students = db['students']
     student = students.find_one({'student_email': student_email})
     return student
 
 def add_contact_info(student_email, preferred_name, student_phone, address, parent_name, parent_phone, parent_email, counselor_name, counselor_phone, counselor_email):
+    """
+    Creates a document in db['teachers']. Happens upon first login.
+    Parameters:
+        String student_name
+        String student_email
+    """
     students = db['students']
     students.find_one_and_update({'student_email': student_email},
                                  {'$set':{'preferred_name': preferred_name,
@@ -40,6 +59,12 @@ def add_contact_info(student_email, preferred_name, student_phone, address, pare
                                   'counselor_email': counselor_email}})
 
 def create_teacher(teacher_name, teacher_email):
+    """
+    Creates a document in db['teachers']. Happens upon first login.
+    Parameters:
+        String teacher_name
+        String teacher_email
+    """
     teachers = db['teachers']
     if teachers.find_one({'teacher_email': teacher_email}) == None:
         new_teacher = {'teacher_name': teacher_name,
@@ -47,6 +72,15 @@ def create_teacher(teacher_name, teacher_email):
         teachers.insert_one(new_teacher)
 
 def create_class(teacher_name, teacher_email, course_code, class_name, class_period):
+    """
+    Creates a document in db['classes'] (Access only by teacher). Adds the class to the teacher's list of classes.
+    Parameters:
+        String teacher_name
+        String teacher_email
+        String course_code
+        String class_name
+        String class_period
+    """
     classes = db['classes']
     new_class = {'teacher_name': teacher_name,
                  'teacher_email': teacher_email,
@@ -60,6 +94,11 @@ def create_class(teacher_name, teacher_email, course_code, class_name, class_per
                                  {'$push':{'classes': ObjectId(new_class.get('_id'))}})
 
 def delete_class(class_id):
+    """
+    Deletes a class by its class_id. Removes from student's, and teacher's list of classes.
+    Parameters:
+        String class_id
+    """
     teachers = db['teachers']
     classes = db['classes']
     students = db['students']
@@ -72,6 +111,13 @@ def delete_class(class_id):
     classes.remove({'_id': ObjectId(class_id)})
 
 def find_student_classes(student_email):
+    """
+    Find all classes that a student is enrolled in.
+    Parameters:
+        String student_email
+    Returns:
+        cursor[]
+    """
     students = db['students']
     classes = db['classes']
     allClasses = []
@@ -82,15 +128,37 @@ def find_student_classes(student_email):
     return allClasses
 
 def find_teacher_classes(teacher_email):
+    """
+    Find all classes that are created by a teacher.
+    Parameters:
+        String teacher_email
+    Returns:
+        cursor[]
+    """
     classes = db['classes']
     return classes.find({'teacher_email': teacher_email})
 
 def find_class(class_id):
+    """
+    Returns document from collection 'classes' from ObjectId.
+    Parameters:
+        String class_id
+    Returns:
+        cursor
+    """
     classes = db['classes']
     ret_class = classes.find_one({'_id': ObjectId(class_id)})
     return ret_class
 
-def all_classes_in_period(class_periods): #class_period in string form (array to allow multiple checkboxes)
+def all_classes_in_period(class_periods):
+    """
+    Returns documents from db['classes'] where the 'class_period' key is equal to the values in the array 'class_periods'.
+    Parameters:
+        str[] class_periods
+            ex. ['p1','p2','p6'] -- names in the checkbox
+    Returns:
+        cursor[]
+    """
     classes = db['classes']
     class_by_period = []
     for x in xrange(len(class_periods)):
@@ -98,6 +166,12 @@ def all_classes_in_period(class_periods): #class_period in string form (array to
     return classes.find({'class_period': {"$in": class_by_period}})
 
 def add_to_class(student_email, class_id):
+    """
+    Adds student to class. Adds class to student.
+    Parameters:
+        String student_email
+        String class_id
+    """
     classes = db['classes']
     classes.find_one_and_update({'_id' : ObjectId(class_id)},
                                 {'$addToSet': {'students': student_email}})
@@ -106,6 +180,12 @@ def add_to_class(student_email, class_id):
                                  {'$addToSet': {'classes': ObjectId(class_id)}})
 
 def remove_from_class(student_email, class_id):
+    """
+    Removes student from class. Removes class from student.
+    Parameters:
+        String student_email
+        String class_id
+    """
     classes = db['classes']
     classes.find_one_and_update({'_id' : ObjectId(class_id)},
                                 {'$pull': {'students': student_email}})
@@ -114,6 +194,13 @@ def remove_from_class(student_email, class_id):
                                  {'$pull': {'classes': ObjectId(class_id)}})
 
 def all_students_in_class(class_id):
+    """
+    Returns a list of all students that are enrolled in a class.
+    Parameters:
+        String class_id
+    Returns:
+        cursor[]
+    """
     students = []
     emails = db['classes'].find_one({'_id': ObjectId(class_id)}).get('students')
     if emails == None:
