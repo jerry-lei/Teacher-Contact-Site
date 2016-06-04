@@ -65,24 +65,24 @@
 	  {% else %}
 	  {% if auth == "teacher" %}
 	  <li>
-	    <a href="/classes">Classes</a>
+	    <a id="classes" href="/classes">Classes</a>
 	  </li>
 	  <li>
-	    <a href="/createClass">Create Class</a>
+	    <a id="createClass" href="/createClass">Create Class</a>
 	  </li>
 	  <li>
-            <a href="/log">Mail Log</a>
+            <a id="log" href="/log">Mail Log</a>
 	  </li>
 </ul>
 {% elif auth == "student" %}
 <li>
-  <a href="/contactInfo">Contact Information</a>
+  <a id="contactInfo" href="/contactInfo">Contact Information</a>
 </li>
 <li>
-  <a href="/addClasses">Add Classes</a>
+  <a id="addClasses" href="/addClasses">Add Classes</a>
 </li>
 <li>
-  <a href="/myClasses">My Classes</a>
+  <a id="myClasses" href="/myClasses">My Classes</a>
 </li>
 </ul>
 {% endif %}

@@ -17,7 +17,7 @@ function checkAuth() {
         {
             'client_id': CLIENT_ID,
             'scope': SCOPES.join(' '),
-            'immediate': false
+            'immediate': true
         }, handleAuthResult);
 };
 
@@ -49,8 +49,7 @@ function handleAuthResult(authResult) {
 			console.log('Error: ' + reason.result.error.message);
 		});
 	    });
-    }else{
-	console.log(authResult.error);
+    }else if(authResult.error != "immediate_failed"){
 	$.getJSON("/logout", {
 	});
     }
@@ -62,7 +61,13 @@ function handleAuthResult(authResult) {
  * @param {Event} event Button click event.
  */
 function handleAuthClick(event) {
-    auth = event.target.id
+    if(event != null){
+	auth = event.target.id;
+    }else if(document.getElementById("classes") != null){
+	auth = "student";
+    }else{
+	auth = "teacher";
+    }
     gapi.auth.authorize(
         {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
         handleAuthResult);
