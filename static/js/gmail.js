@@ -87,7 +87,8 @@ function signOut(){
             winning.close();
 	    $.getJSON("/logout", {
 	    }, function(data){
-		window.location.reload(true)
+		window.location.reload(true);
+    window.location = "/";
 	    });
 	}
     }, 100);
