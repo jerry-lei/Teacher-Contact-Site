@@ -110,9 +110,9 @@ def createClass():
 def student(student_id = ""):
     if session.get('auth') != 'teacher':
         return redirect("/")
-    elif database.check_contact_info(student_id) == None:
+    elif database.find_student(student_id) == None:
         return redirect("/")
-    return render_template("contactInfo.html", client_id = client_id, username = session.get('username'), auth = session.get('auth'), email = session.get('email'), student = database.check_contact_info(student_id))
+    return render_template("contactInfo.html", client_id = client_id, username = session.get('username'), auth = session.get('auth'), email = session.get('email'), student = database.find_student(student_id))
 
 @app.route("/contactInfo", methods=["GET", "POST"])
 @app.route("/contactInfo/<student_id>", methods=["GET", "POST"])
@@ -122,12 +122,12 @@ def contactInfo(student_id=""):
             if len(student_id) > 0:
                 return redirect("/contactInfo")
             else:
-                return render_template("contactInfo.html", client_id = client_id, username = session.get('username'), auth = session.get('auth'), email = session.get('email'), student = database.check_contact_info(session.get('email')))
+                return render_template("contactInfo.html", client_id = client_id, username = session.get('username'), auth = session.get('auth'), email = session.get('email'), student = database.find_student(session.get('email')))
         elif session.get('auth') == 'teacher':
-            if database.check_contact_info(student_id) == None:
+            if database.find_student(student_id) == None:
                 return redirect("/")
             else:
-                return render_template("contactInfo.html", client_id = client_id, username = session.get('username'), auth = session.get('auth'), email = session.get('email'), student = database.check_contact_info(student_id))
+                return render_template("contactInfo.html", client_id = client_id, username = session.get('username'), auth = session.get('auth'), email = session.get('email'), student = database.find_student(student_id))
         else:
             return redirect("/")
     else:
@@ -159,9 +159,6 @@ def log():
         return redirect("/")
     else:
         return render_template("log.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), logs = database.find_log(session.get('username')))
-
-            #database.delete_log(session.get('username'),student_name,time)
-            #return render_template("log.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), logs = database.find_log(session.get('username')))
 
 @app.route("/logInfo/<student_name>/<time>", methods=["GET","POST"])
 def logInfo(student_name = "", time = ""):
