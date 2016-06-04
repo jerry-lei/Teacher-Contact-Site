@@ -79,7 +79,7 @@ def find_student_classes(student_email):
         for x in classIds:
             allClasses.append(classes.find_one({'_id': ObjectId(x)}))
     return allClasses
-            
+
 def find_teacher_classes(teacher_email):
     classes = db['classes']
     return classes.find({'teacher_email': teacher_email})
@@ -96,8 +96,6 @@ def all_classes_in_period(class_periods): #class_period in string form (array to
         class_by_period.append(class_periods[x][1:])
     return classes.find({'class_period': {"$in": class_by_period}})
 
-def classes_student_in(student_email):
-    pass
 
 def add_to_class(student_email, class_id):
     classes = db['classes']
@@ -114,7 +112,7 @@ def remove_from_class(student_email, class_id):
     students = db['students']
     students.find_one_and_update({'student_email': student_email},
                                  {'$pull': {'classes': ObjectId(class_id)}})
-    
+
 def all_students_in_class(class_id):
     students = []
     emails = db['classes'].find_one({'_id': ObjectId(class_id)}).get('students')
@@ -155,5 +153,3 @@ def add_to_log(teacher_name,student_name,time,notes):
     logs = db['logs']
     logs.find_one_and_update({'_id' : ObjectId(time)},
                              {'$addToSet': {'notes': notes}})
-
-

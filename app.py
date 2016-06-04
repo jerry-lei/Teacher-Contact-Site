@@ -65,6 +65,7 @@ def classes(class_id = ""):
             if button == "Email Multiple Students":
                 return redirect("/sendMail/"+class_id)
             if button == "Confirm Delete":
+                print "HERE!"
                 database.delete_class(class_id)
                 return redirect("/classes")
 
@@ -103,8 +104,8 @@ def createClass():
         else:
             return render_template("createClass.html",client_id = client_id, username = session.get('username'), auth = session.get('auth'), email = session.get('email'))
     else:
-        database.create_class(session.get('username'), session.get('email'), request.form.get('course_code'), request.form.get('course_name'), request.form.get('course_period'))
-        return redirect("/")
+        database.create_class(session.get('username'), session.get('email'), request.form.get('course_code'), request.form.get('course_name'), str(request.form.get('course_period')))
+        return redirect("/classes")
 
 def student(student_id = ""):
     if session.get('auth') != 'teacher':
@@ -150,7 +151,7 @@ def addClasses():
     return redirect("/")
 
 @app.route("/log", methods=["GET"])
-def log():    
+def log():
     if session.get('auth') != 'teacher':
         return redirect("/")
     else:
