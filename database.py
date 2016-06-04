@@ -69,6 +69,7 @@ def delete_class(class_id):
     if c.get('students') != None:
         for x in c.get('students'):
             students.find_one_and_update({'student_email': x}, {'$pull': {'classes': ObjectId(class_id)}})
+    classes.remove({'_id': ObjectId(class_id)})
 
 def find_student_classes(student_email):
     students = db['students']
@@ -95,7 +96,6 @@ def all_classes_in_period(class_periods): #class_period in string form (array to
     for x in xrange(len(class_periods)):
         class_by_period.append(class_periods[x][1:])
     return classes.find({'class_period': {"$in": class_by_period}})
-
 
 def add_to_class(student_email, class_id):
     classes = db['classes']

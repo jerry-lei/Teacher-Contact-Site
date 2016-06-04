@@ -17,7 +17,7 @@ function checkAuth() {
         {
             'client_id': CLIENT_ID,
             'scope': SCOPES.join(' '),
-            'immediate': true
+            'immediate': false
         }, handleAuthResult);
 };
 
@@ -50,6 +50,7 @@ function handleAuthResult(authResult) {
 		});
 	    });
     }else{
+	console.log(authResult.error);
 	$.getJSON("/logout", {
 	});
     }

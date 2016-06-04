@@ -54,7 +54,7 @@ def classes(class_id = ""):
             return redirect("/")
         if request.method == "GET":
             return render_template("class.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), class_one = c1, students = database.all_students_in_class(class_id))
-        if request.method == "POST":
+        elif request.method == "POST":
             button = request.form['button']
             if button == "Enroll in Class":
                 database.add_to_class(session.get('email'), class_id)
