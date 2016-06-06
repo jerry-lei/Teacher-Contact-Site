@@ -50,11 +50,11 @@ def classes(class_id = ""):
             return render_template("classes.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), classes = database.find_teacher_classes(session.get('email')))
     else:
         c1 = database.find_class(class_id)
-        if c1 == None:
+        if c1 == None or session.get('auth') == None:
             return redirect("/")
         if request.method == "GET":
             return render_template("class.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), class_one = c1, students = database.all_students_in_class(class_id))
-        elif request.method == "POST":
+        else:
             button = request.form['button']
             if button == "Enroll in Class":
                 database.add_to_class(session.get('email'), class_id)
@@ -72,11 +72,11 @@ def classes(class_id = ""):
 @app.route("/sendMail/<class_id>", methods=["GET","POST"])
 def sendMail(class_id):
     c1 = database.find_class(class_id)
-    if c1 == None:
+    if c1 == None or session.get('auth') == None:
         return redirect("/")
     if request.method == "GET":
         return render_template("sendMail.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), class_one = c1, students = database.all_students_in_class(class_id))
-    if request.method == "POST":
+    elif request.method == "POST":
         print "ASDFASDF"
         button = request.form['button']
         checkbox = request.form['checkbox']
@@ -107,13 +107,6 @@ def createClass():
         database.create_class(session.get('username'), session.get('email'), request.form.get('course_code'), request.form.get('course_name'), str(request.form.get('course_period')))
         return redirect("/classes")
 
-def student(student_id = ""):
-    if session.get('auth') != 'teacher':
-        return redirect("/")
-    elif database.find_student(student_id) == None:
-        return redirect("/")
-    return render_template("contactInfo.html", client_id = client_id, username = session.get('username'), auth = session.get('auth'), email = session.get('email'), student = database.find_student(student_id))
-
 @app.route("/contactInfo", methods=["GET", "POST"])
 @app.route("/contactInfo/<student_id>", methods=["GET", "POST"])
 def contactInfo(student_id=""):
@@ -133,7 +126,7 @@ def contactInfo(student_id=""):
     else:
         if session.get('auth') == 'student':
             database.add_contact_info(session.get('email'), request.form.get('sname'), request.form.get('sphone'), request.form.get('address'), request.form.get('pname'), request.form.get('pphone'), request.form.get('pemail'), request.form.get('gname'), request.form.get('gphone'), request.form.get('gemail'))
-        else:
+        elif session.get('auth') == 'teacher':
             database.add_contact_info(student_id, request.form.get('sname'), request.form.get('sphone'), request.form.get('address'), request.form.get('pname'), request.form.get('pphone'), request.form.get('pemail'), request.form.get('gname'), request.form.get('gphone'), request.form.get('gemail'))
         return redirect("/")
 
