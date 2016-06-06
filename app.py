@@ -2,6 +2,7 @@ from flask import Flask, render_template, session, request, redirect, jsonify
 import database
 import utils
 import json
+import cgi
 
 app = Flask(__name__)
 
@@ -79,19 +80,18 @@ def sendMail(class_id):
     elif request.method == "POST":
         print "ASDFASDF"
         button = request.form['button']
-        checkbox = request.form['checkbox']
+        formData=cgi.FieldStorage()
+        if 'checkbox' in formData and formData.getvalue('checkbox') == 'on':
+            template = request.form['checkbox']
+        else:
+            template = ''
         #database.log_mail (FUNCTION THAT CLIENT ASKED FOR)
         if button == "Go to Email Page":
             to = request.form.getlist("checks")
             body = request.form.get("body_name")
             subject = request.form.get("subject_name")
-            template = ""
             teacher_name = session.get('username')
-            if checkbox == "late_email":
-                template = "late_email"
-            if checkbox == "":
-                template == ''
-            gmail_link = utils.make_link(body, to, subject, template,teacher_name)
+            gmail_link = utils.make_link(body, to, subject, template, teacher_name)
             for student in request.form.getlist("checks"):
                 database.add_log(session.get('username'),student)
             return redirect(gmail_link)
