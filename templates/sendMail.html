@@ -8,7 +8,7 @@
   <form method="post" id="name_checks">
   <div class="btn-group-vertical" data-toggle="buttons" style="width:25%;">
     {% for student in students %}
-    <label class="btn btn-success btn-block"><input type="checkbox" name="checks" value="{{student.student_email}}"> {{student.student_name}}<br></label>
+    <label class="btn btn-success btn-block"><input type="checkbox" name="checks" value="{{student.student_email}}">{{student.student_name}}<br></label>
     {% endfor %}
   </div>
 <!--

@@ -40,13 +40,16 @@ function popupEmail(to_email, from_name, class_name, class_period){
  *
  */
 function popupEmailMultiple(){
-  var form = document.getElementById("name_checks");
+  //var form = document.getElementById("name_checks");
+  var form = document.getElementsByName("checks");
   var to_str = "";
-  for (var c1 = 0; c1 < form.elements['checks'].length; c1++) {
-    if (form.elements['checks'][c1].checked == true){
-      to_str += (form.elements['checks'][c1].value) + ',';
+  for (var c1 = 0; c1 < form.length; c1++){
+    if(form[c1].checked){
+      console.log(form[c1]);
+      to_str += form[c1].value + ",";
     }
   }
+
   console.log(to_str);
   var body = document.getElementById("body_name").value;
   body = body.replace(/\r?\n/g, '%0A');
