@@ -1,12 +1,13 @@
 from flask import Flask, render_template, session, request, redirect, jsonify
 import database
-import utils
-import json
+from json import load
+from cgi import FieldStorage
+from datetime import datetime
 
 app = Flask(__name__)
 
 with open('gmail.json') as data_file:
-    data = json.load(data_file)
+    data = load(data_file)
 client_id = data['web']['client_id']
 
 @app.route("/")
@@ -47,23 +48,23 @@ def classes(class_id = ""):
         if session.get('auth') != 'teacher':
             return redirect("/")
         else:
-            return render_template("classes.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), classes = sorted(database.find_teacher_classes(session.get('email')), key=lambda x: x.get('class_period')))
+            return render_template("classes.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), classes = sorted(database.find_teacher_classes(session.get('email')), key = lambda x: x.get('class_period')))
     else:
         c1 = database.find_class(class_id)
         if c1 == None or session.get('auth') == None:
             return redirect("/")
         if request.method == "GET":
-            return render_template("class.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), class_one = c1, students = sorted(database.all_students_in_class(class_id), key=lambda x: x.get('student_name').split()[-1]))
+            return render_template("class.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), class_one = c1, students = sorted(database.all_students_in_class(class_id), key = lambda x: x.get('student_name').split()[-1]))
         else:
             button = request.form['button']
             if button == "Enroll in Class":
                 database.add_to_class(session.get('email'), class_id)
-                return redirect("/classes/"+class_id)
+                return redirect("/classes/" + class_id)
             if button == "Leave Class":
                 database.remove_from_class(session.get('email'), class_id)
-                return redirect("/classes/"+class_id)
+                return redirect("/classes/" + class_id)
             if button == "Email Multiple Students":
-                return redirect("/sendMail/"+class_id)
+                return redirect("/sendMail/" + class_id)
             if button == "Confirm Delete":
                 print "HERE!"
                 database.delete_class(class_id)
@@ -77,23 +78,19 @@ def sendMail(class_id):
     if request.method == "GET":
         return render_template("sendMail.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), class_one = c1, students = database.all_students_in_class(class_id))
     elif request.method == "POST":
-        print "ASDFASDF"
         button = request.form['button']
-        formData=cgi.FieldStorage()
+        formData = FieldStorage()
         if 'checkbox' in formData and formData.getvalue('checkbox') == 'on':
             template = request.form['checkbox']
         else:
             template = ''
-        #database.log_mail (FUNCTION THAT CLIENT ASKED FOR)
-        if button == "Go to Email Page":
-            to = request.form.getlist("checks")
-            body = request.form.get("body_name")
-            subject = request.form.get("subject_name")
-            teacher_name = session.get('username')
-            gmail_link = utils.make_link(body, to, subject, template, teacher_name)
-            for student in request.form.getlist("checks"):
-                database.add_log(session.get('username'),student)
-            return redirect(gmail_link)
+        to = request.form.getlist("checks")
+        body = request.form.get("body_name")
+        subject = request.form.get("subject_name")
+        teacher_name = session.get('username')
+        for student in request.form.getlist("checks"):
+            database.add_log(session.get('username'), student, subject, body)
+        return redirect("/classes/" + class_id)
 
 @app.route("/createClass", methods=["GET", "POST"])
 def createClass():
@@ -107,11 +104,11 @@ def createClass():
         return redirect("/classes")
 
 @app.route("/contactInfo", methods=["GET", "POST"])
-@app.route("/contactInfo/<student_id>", methods=["GET", "POST"])
-def contactInfo(student_id=""):
+@app.route("/contactInfo/<class_id>/<student_id>", methods=["GET", "POST"])
+def contactInfo(class_id = "", student_id = ""):
     if request.method == "GET":
         if session.get('auth') == 'student':
-            if len(student_id) > 0:
+            if len(student_id) > 0 or len(class_id) > 0:
                 return redirect("/contactInfo")
             else:
                 return render_template("contactInfo.html", client_id = client_id, username = session.get('username'), auth = session.get('auth'), email = session.get('email'), student = database.find_student(session.get('email')))
@@ -125,9 +122,10 @@ def contactInfo(student_id=""):
     else:
         if session.get('auth') == 'student':
             database.add_contact_info(session.get('email'), request.form.get('sname'), request.form.get('sphone'), request.form.get('address'), request.form.get('pname'), request.form.get('pphone'), request.form.get('pemail'), request.form.get('gname'), request.form.get('gphone'), request.form.get('gemail'))
+            return redirect("/")
         elif session.get('auth') == 'teacher':
             database.add_contact_info(student_id, request.form.get('sname'), request.form.get('sphone'), request.form.get('address'), request.form.get('pname'), request.form.get('pphone'), request.form.get('pemail'), request.form.get('gname'), request.form.get('gphone'), request.form.get('gemail'))
-        return redirect("/")
+            return redirect("/classes/" + class_id)
 
 @app.route("/addClasses", methods=["GET", "POST"])
 def addClasses():
@@ -152,7 +150,7 @@ def log(logId = ""):
         return redirect("/")
     else:
         if len(logId) == 0:
-            return render_template("log.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), logs = database.find_all_logs(session.get('username')))
+            return render_template("log.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), logs = sorted(database.find_all_logs(session.get('username')), key = lambda x: x.get('time'), reverse = True))
         elif database.find_log(logId) == None:
             return redirect("/log")
         elif request.method == "GET":

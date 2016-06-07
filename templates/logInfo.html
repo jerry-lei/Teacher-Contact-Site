@@ -3,15 +3,19 @@
 {% block body %}
 <center>
 
-Sent email to {{log.student_name}} at {{log.time}}
-<br><br>
-Additional notes:
-<form method="post">
+  Sent email to {{log.student_name}} at {{log.time}}
   <br>
-  <textarea name="notes" style="height:300px;width:300px;">{{log.notes}}</textarea>
+  Subject: {{log.subject}}
+  <br>
+  Body: {{log.body}}
+  <br><br>
+  Additional notes:
+  <form method="post">
+    <br>
+    <textarea name="notes" style="height:300px;width:300px;">{{log.notes}}</textarea>
   <br><br>
   <input type="submit" class="btn btn-default" style="width:33%;" value="Add notes">
-</form>
+  </form>
 </center>
 
 {% endblock %}

@@ -213,11 +213,13 @@ def all_students_in_class(class_id):
         students.append(db['students'].find_one({'student_email': email}))
     return students
 
-def add_log(teacher_name, student_name):
+def add_log(teacher_name, student_name, subject, body):
   logs = db['logs']
   time = datetime.now()
   new_log = {'teacher_name': teacher_name,
              'student_name': student_name,
+             'subject': subject,
+             'body': body,
              'time': str(time),
              'notes':''
             }
@@ -235,7 +237,7 @@ def find_all_logs(teacher_name):
     return logs.find({'teacher_name': teacher_name})
 
 def delete_log(logId):
-    logs = db['logs']
+    logs = dteb['logs']
     return logs.remove({'_id': ObjectId(logId)})
 
 def add_to_log(logId, notes):
