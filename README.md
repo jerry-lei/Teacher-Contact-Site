@@ -33,11 +33,29 @@ This Teacher Contact Site is a final project for a software development class. I
 - https://github.com/BlackrockDigital/startbootstrap-bare
 - https://developers.google.com/gmail/api/quickstart/js
 
-### How to use (server sided):
+### DEPLOYMENT GUIDE:
 1. Get API keys from https://console.developers.google.com
-2. Save the json file and rename it to gmail.json in the directory named 'secret_key' next to the github repo<br>
-   ``` $ ~/Teacher-Contact-Site```<br>
-   ``` $ ~/secret_key/gmail.json```<br>
+  - Select 'Create a project...' from dropdown on top right, 'Select a project'
+  - Fill in project name with 'Stuyvesant Contact Site'
+  - Click on 'Google+ API' under Social APIs
+    - Click on the blue 'Enable' button
+  - On the left navigation bar, go to the 'Credentials' page
+    - Go to the 'OAuth consent screen' tab
+      - Fill in 'Product name shown to users' with 'Stuyvesant Contact Site'
+      - Click 'Save' (Will be directed to a credentials page)
+        - Select Web Application under 'Application type'
+        - Name: Stuyvesant Contact Site
+        - Authorized Javascript origins: http://<site ip/name>
+        - Click 'Create'
+    - Go to 'Credentials' tab
+      - Click on 'Stuyvesant Contact Site'
+      - Click 'Download JSON' button
+      - Save the json file as 'gmail.json'
+2. Put the json file in the repo
+  '''
+  ├───Teacher-Contact-Site
+  │   └───gmail.json
+  '''<br>
 3. Enable Gmail and Google+ APIs
 4. Necessary python imports:
   - flask
