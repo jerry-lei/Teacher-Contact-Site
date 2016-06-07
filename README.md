@@ -53,8 +53,7 @@ This Teacher Contact Site is a final project for a software development class. I
       - Save the json file as 'gmail.json'
 2. Put the json file in the repo<br>
   ├───Teacher-Contact-Site<br>
-  │   └───gmail.json<br>
-  <br>
+  │&nbsp;&nbsp;&nbsp;└───gmail.json<br>
 3. Enable Gmail and Google+ APIs
 4. Necessary python imports:
   - flask
