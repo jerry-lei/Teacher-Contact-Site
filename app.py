@@ -146,25 +146,27 @@ def addClasses():
             return render_template("addClass.html",client_id = client_id, username = session.get('username'), auth = session.get('auth'), email = session.get('email'))#,database.all_classes_in_period())
     return redirect("/")
 
-@app.route("/log", methods=["GET"])
-def log():
+@app.route("/log")
+@app.route("/log/<logId>", methods=["GET", "POST"])
+def log(logId = ""):
     if session.get('auth') != 'teacher':
         return redirect("/")
     else:
-        return render_template("log.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), logs = database.find_log(session.get('username')))
-
-@app.route("/logInfo/<student_name>/<time>", methods=["GET","POST"])
-def logInfo(student_name = "", time = ""):
-    if request.method == "GET":
-        return render_template("logInfo.html",student_name=student_name,time=time, client_id = client_id, username = session.get('username'), auth=session.get('auth'))
-    else:
-        button = request.form['button']
-        return "testy"
-
+        if len(logId) == 0:
+            return render_template("log.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), logs = database.find_all_logs(session.get('username')))
+        elif database.find_log(logId) == None:
+            return redirect("/log")
+        elif request.method == "GET":
+            return render_template("logInfo.html", log = database.find_log(logId), client_id = client_id, username = session.get('username'), auth=session.get('auth'))
+        else:
+            database.add_to_log(logId, request.form.get('notes'))
+            return redirect("/log/"+logId)
+'''
 @app.route("/templates")
 def templates():
     return render_template("templates.html", client_id = client_id, username = session.get('username'), auth=session.get('auth'))
-    
+'''
+
 if __name__ == "__main__":
     app.debug = True
     app.secret_key = "supersecretkey"

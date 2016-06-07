@@ -3,7 +3,7 @@
 {% block body %}
 <center>
 {% for item in logs %}
-<a href="/logInfo/{{item.student_name}}/{{item.time}}">Sent an email to {{item.student_name}} on {{item.time}}</a>
+<a href="/log/{{item._id}}">Sent an email to {{item.student_name}} on {{item.time}}</a>
 <br><br>
 {% endfor %}
 </center>

@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+from bson.errors import InvalidId
 from datetime import datetime
 
 connection = MongoClient()
@@ -147,9 +148,12 @@ def find_class(class_id):
         cursor
     """
     classes = db['classes']
-    ret_class = classes.find_one({'_id': ObjectId(class_id)})
-    return ret_class
-
+    try:
+        ret_class = classes.find_one({'_id': ObjectId(class_id)})
+        return ret_class
+    except InvalidId:
+        return None
+    
 def all_classes_in_period(class_periods):
     """
     Returns documents from db['classes'] where the 'class_period' key is equal to the values in the array 'class_periods'.
@@ -219,28 +223,27 @@ def add_log(teacher_name, student_name):
             }
   logs.insert_one(new_log)
 
-def find_log(teacher_name):
-  logs = db['logs']
-  return logs.find({'teacher_name': teacher_name})
-
-def delete_log(teacher_name,student_name,time):
-  logs = db['logs']
-  teacher_logs = logs.find({'teacher_name': teacher_name})
-  log_by_student = []
-  for item in teacher_logs:
-    if item['student_name'] == student_name:
-      log_by_student.append(item)
-  log_by_time = []
-  for item in log_by_student:
-    if item['time'] == time:
-      log_by_time.append(item)
-  return logs.remove({'_id': ObjectId(log_by_time[0]['_id'])})
-
-def add_to_log(teacher_name,student_name,time,notes):
+def find_log(logId):
     logs = db['logs']
-    logs.find_one_and_update({'_id' : ObjectId(time)},
-                             {'$addToSet': {'notes': notes}})
+    try:
+        return logs.find_one({'_id': ObjectId(logId)})
+    except InvalidId:
+        return None
+    
+def find_all_logs(teacher_name):
+    logs = db['logs']
+    return logs.find({'teacher_name': teacher_name})
 
+def delete_log(logId):
+    logs = db['logs']
+    return logs.remove({'_id': ObjectId(logId)})
+
+def add_to_log(logId, notes):
+    logs = db['logs']
+    logs.find_one_and_update({'_id' : ObjectId(logId)},
+                             {'$set': {'notes': notes}})
+
+'''
 def addTemplate(teacher_email, template_name, subject, body):
     templates = db['templates']
     templates.insert_one({'teacher_email': teacher_email, 'template_name': temmplate_name, 'subject': subject, 'body': body})
@@ -249,3 +252,4 @@ def addTemplate(teacher_email, template_name, subject, body):
 def get_teacher_templates(teacher_email):
     templates = db['templates']
     return templates.find({'teacher_email': teacher_email})
+'''
