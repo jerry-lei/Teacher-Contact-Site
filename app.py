@@ -2,7 +2,6 @@ from flask import Flask, render_template, session, request, redirect, jsonify
 import database
 import utils
 import json
-import cgi
 
 app = Flask(__name__)
 
