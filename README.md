@@ -45,7 +45,7 @@ This Teacher Contact Site is a final project for a software development class. I
       - Click 'Save' (Will be directed to a credentials page)
         - Select Web Application under 'Application type'
         - Name: Stuyvesant Contact Site
-        - Authorized Javascript origins: http://<site ip/name>
+        - Authorized Javascript origins: http://stuycontact.stuycs.org (or whatever IP/name)
         - Click 'Create'
     - Go to 'Credentials' tab
       - Click on 'Stuyvesant Contact Site'
