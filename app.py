@@ -6,7 +6,7 @@ import cgi
 
 app = Flask(__name__)
 
-with open('../secret_key/gmail.json') as data_file:
+with open('gmail.json') as data_file:
     data = json.load(data_file)
 client_id = data['web']['client_id']
 
@@ -48,13 +48,13 @@ def classes(class_id = ""):
         if session.get('auth') != 'teacher':
             return redirect("/")
         else:
-            return render_template("classes.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), classes = database.find_teacher_classes(session.get('email')))
+            return render_template("classes.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), classes = sorted(database.find_teacher_classes(session.get('email')), key=lambda x: x.get('class_period')))
     else:
         c1 = database.find_class(class_id)
         if c1 == None or session.get('auth') == None:
             return redirect("/")
         if request.method == "GET":
-            return render_template("class.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), class_one = c1, students = database.all_students_in_class(class_id))
+            return render_template("class.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), class_one = c1, students = sorted(database.all_students_in_class(class_id), key=lambda x: x.get('student_name').split()[-1]))
         else:
             button = request.form['button']
             if button == "Enroll in Class":
@@ -156,11 +156,15 @@ def log():
 @app.route("/logInfo/<student_name>/<time>", methods=["GET","POST"])
 def logInfo(student_name = "", time = ""):
     if request.method == "GET":
-        return render_template("logInfo.html",student_name=student_name,time=time)
+        return render_template("logInfo.html",student_name=student_name,time=time, client_id = client_id, username = session.get('username'), auth=session.get('auth'))
     else:
         button = request.form['button']
         return "testy"
 
+@app.route("/templates")
+def templates():
+    return render_template("templates.html", client_id = client_id, username = session.get('username'), auth=session.get('auth'))
+    
 if __name__ == "__main__":
     app.debug = True
     app.secret_key = "supersecretkey"

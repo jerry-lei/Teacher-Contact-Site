@@ -240,3 +240,12 @@ def add_to_log(teacher_name,student_name,time,notes):
     logs = db['logs']
     logs.find_one_and_update({'_id' : ObjectId(time)},
                              {'$addToSet': {'notes': notes}})
+
+def addTemplate(teacher_email, template_name, subject, body):
+    templates = db['templates']
+    templates.insert_one({'teacher_email': teacher_email, 'template_name': temmplate_name, 'subject': subject, 'body': body})
+
+
+def get_teacher_templates(teacher_email):
+    templates = db['templates']
+    return templates.find({'teacher_email': teacher_email})
