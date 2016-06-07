@@ -54,11 +54,9 @@ This Teacher Contact Site is a final project for a software development class. I
 2. Put the json file in the repo<br>
   ├Teacher-Contact-Site<br>
   │└─gmail.json<br>
-
-3. Enable Gmail and Google+ APIs
-4. Necessary python imports:
+3. Necessary python imports:
   - flask
   - json
   - pymongo
   - MongoDB
-5. Run app.py
+4. Run app.py
