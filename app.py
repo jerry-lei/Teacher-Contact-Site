@@ -154,11 +154,13 @@ def log():
         return render_template("log.html",client_id = client_id, username = session.get('username'), auth=session.get('auth'), logs = database.find_log(session.get('username')))
 
 @app.route("/logInfo/<student_name>/<time>", methods=["GET","POST"])
-def logInfo(student_name = "", time = ""):
+def logInfo(student_name, time):
     if request.method == "GET":
         return render_template("logInfo.html",student_name=student_name,time=time, client_id = client_id, username = session.get('username'), auth=session.get('auth'))
-    else:
-        button = request.form['button']
+    if request.method == "POST":
+        notes = request.form['notes']
+        print notes
+        database.add_to_log(session.get('username'),student_name,time,notes)
         return "testy"
 
 @app.route("/templates")
