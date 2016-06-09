@@ -3,10 +3,12 @@ import database
 from json import load
 from cgi import FieldStorage
 from datetime import datetime
+from os import path
 
 app = Flask(__name__)
 
-with open('gmail.json') as data_file:
+#with open('gmail.json') as data_file:
+with open(path.dirname(__file__) + 'gmail.json') as data_file:
     data = load(data_file)
 client_id = data['web']['client_id']
 
