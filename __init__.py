@@ -3,7 +3,7 @@ import database
 from json import load
 from cgi import FieldStorage
 from datetime import datetime
-from os import path
+from os import path, urandom
 
 app = Flask(__name__)
 
@@ -167,6 +167,6 @@ def templates():
 '''
 
 if __name__ == "__main__":
-    app.debug = True
-    app.secret_key = "supersecretkey"
-    app.run(host = '0.0.0.0', port = 8000)
+    #app.debug = True
+    app.secret_key = urandom(24)
+    app.run()#host = '0.0.0.0', port = 8000)
