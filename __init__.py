@@ -7,7 +7,7 @@ from os import path, urandom
 
 
 app = Flask(__name__)
-app.secret_key = urandom(24)
+app.secret_key = 'asdfljkasdjfklasjdfkljasdk'
 
 #with open('gmail.json') as data_file:
 with open(path.dirname(__file__) + '/gmail.json') as data_file:
