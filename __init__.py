@@ -3,9 +3,11 @@ import database
 from json import load
 from cgi import FieldStorage
 from datetime import datetime
-from os import path#, urandom
+from os import path, urandom
+
 
 app = Flask(__name__)
+app.secret_key = urandom(24)
 
 #with open('gmail.json') as data_file:
 with open(path.dirname(__file__) + '/gmail.json') as data_file:
@@ -168,5 +170,4 @@ def templates():
 
 if __name__ == "__main__":
     #app.debug = True
-    app.secret_key = '6c1bbc7648f9048d1357481539fb5b34b5d19149b3e3dfd0'
     app.run()#host = '0.0.0.0', port = 8000)
