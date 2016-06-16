@@ -168,5 +168,5 @@ def templates():
 
 if __name__ == "__main__":
     #app.debug = True
-    app.secret_key = 'applesauce'#urandom(24)
+    app.secret_key = '6c1bbc7648f9048d1357481539fb5b34b5d19149b3e3dfd0'
     app.run()#host = '0.0.0.0', port = 8000)
