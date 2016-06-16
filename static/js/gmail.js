@@ -49,10 +49,10 @@ function handleAuthResult(authResult) {
 			console.log('Error: ' + reason.result.error.message);
 		});
 	    });
-    }else if(authResult.error != "immediate_failed"){
+    }/*else if(authResult.error != "immediate_failed"){
 	$.getJSON("/logout", {
 	});
-    }
+    }*/
 }
 
 /**
